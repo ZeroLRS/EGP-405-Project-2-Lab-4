@@ -1,0 +1,96 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "egp-raknet-console", "..\..\egp-raknet-console\egp-raknet-console.vcxproj", "{5EC9C5FE-41CA-468B-9831-2B1E6BA2A614}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "egp-net-framework", "..\..\egp-net-framework\egp-net-framework.vcxproj", "{4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "egp-net-game-server", "..\..\egp-net-game-server\egp-net-game-server.vcxproj", "{69C53C5A-923F-4101-8135-D3874275698B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94} = {4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "egp-net-game-client", "..\..\egp-net-game-client\egp-net-game-client.vcxproj", "{36C625F4-E2B5-4D83-8711-B68FE5EFB4BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EC9C5FE-41CA-468B-9831-2B1E6BA2A614}.Debug|x64.ActiveCfg = Debug|x64
+		{5EC9C5FE-41CA-468B-9831-2B1E6BA2A614}.Debug|x64.Build.0 = Debug|x64
+		{5EC9C5FE-41CA-468B-9831-2B1E6BA2A614}.Debug|x86.ActiveCfg = Debug|Win32
+		{5EC9C5FE-41CA-468B-9831-2B1E6BA2A614}.Debug|x86.Build.0 = Debug|Win32
+		{5EC9C5FE-41CA-468B-9831-2B1E6BA2A614}.Release|x64.ActiveCfg = Release|x64
+		{5EC9C5FE-41CA-468B-9831-2B1E6BA2A614}.Release|x64.Build.0 = Release|x64
+		{5EC9C5FE-41CA-468B-9831-2B1E6BA2A614}.Release|x86.ActiveCfg = Release|Win32
+		{5EC9C5FE-41CA-468B-9831-2B1E6BA2A614}.Release|x86.Build.0 = Release|Win32
+		{4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94}.Debug|x64.ActiveCfg = Debug|x64
+		{4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94}.Debug|x64.Build.0 = Debug|x64
+		{4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94}.Debug|x86.ActiveCfg = Debug|Win32
+		{4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94}.Debug|x86.Build.0 = Debug|Win32
+		{4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94}.Release|x64.ActiveCfg = Release|x64
+		{4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94}.Release|x64.Build.0 = Release|x64
+		{4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94}.Release|x86.ActiveCfg = Release|Win32
+		{4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94}.Release|x86.Build.0 = Release|Win32
+		{69C53C5A-923F-4101-8135-D3874275698B}.Debug|x64.ActiveCfg = Debug|x64
+		{69C53C5A-923F-4101-8135-D3874275698B}.Debug|x64.Build.0 = Debug|x64
+		{69C53C5A-923F-4101-8135-D3874275698B}.Debug|x86.ActiveCfg = Debug|Win32
+		{69C53C5A-923F-4101-8135-D3874275698B}.Debug|x86.Build.0 = Debug|Win32
+		{69C53C5A-923F-4101-8135-D3874275698B}.Release|x64.ActiveCfg = Release|x64
+		{69C53C5A-923F-4101-8135-D3874275698B}.Release|x64.Build.0 = Release|x64
+		{69C53C5A-923F-4101-8135-D3874275698B}.Release|x86.ActiveCfg = Release|Win32
+		{69C53C5A-923F-4101-8135-D3874275698B}.Release|x86.Build.0 = Release|Win32
+		{36C625F4-E2B5-4D83-8711-B68FE5EFB4BC}.Debug|x64.ActiveCfg = Debug|x64
+		{36C625F4-E2B5-4D83-8711-B68FE5EFB4BC}.Debug|x64.Build.0 = Debug|x64
+		{36C625F4-E2B5-4D83-8711-B68FE5EFB4BC}.Debug|x86.ActiveCfg = Debug|Win32
+		{36C625F4-E2B5-4D83-8711-B68FE5EFB4BC}.Debug|x86.Build.0 = Debug|Win32
+		{36C625F4-E2B5-4D83-8711-B68FE5EFB4BC}.Release|x64.ActiveCfg = Release|x64
+		{36C625F4-E2B5-4D83-8711-B68FE5EFB4BC}.Release|x64.Build.0 = Release|x64
+		{36C625F4-E2B5-4D83-8711-B68FE5EFB4BC}.Release|x86.ActiveCfg = Release|Win32
+		{36C625F4-E2B5-4D83-8711-B68FE5EFB4BC}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9D9CCBAB-65B7-4E77-8C88-5EEBC7707D48}
+	EndGlobalSection
+	GlobalSection(HgVSProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	GlobalSection(HgVSProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	GlobalSection(HgVSProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	GlobalSection(HgVSProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	GlobalSection(HgVSProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	GlobalSection(HgVSProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	GlobalSection(HgVSProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+	GlobalSection(HgVSProperties) = preSolution
+		SolutionIsControlled = True
+		SolutionBindings = <Solution Location In Database>
+	EndGlobalSection
+EndGlobal
