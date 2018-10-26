@@ -3,11 +3,10 @@
 
 
 // SDL INCLUDE
-#include <SDL.h>
-#include <SDL_surface.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_surface.h>
 //#include <SDL_ttf.h>
 //#include <SDL_image.h>
-
 
 // HEADER FILE INCLUDES
 #include "DemoState.h"
