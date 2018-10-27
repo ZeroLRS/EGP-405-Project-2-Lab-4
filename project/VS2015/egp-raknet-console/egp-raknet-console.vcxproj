@@ -173,10 +173,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\egp-raknet-console\egp-raknet-console-main.cpp" />
+    <ClCompile Include="BouncingBall.cpp" />
+    <ClCompile Include="DemoState.cpp" />
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="EventListener.cpp" />
+    <ClCompile Include="EventQueue.cpp" />
+    <ClCompile Include="EventSystem.cpp" />
+    <ClCompile Include="inputManager.cpp" />
     <ClCompile Include="RaknetInitData.cpp" />
+    <ClCompile Include="Unit.cpp" />
+    <ClCompile Include="UnitManager.cpp" />
+    <ClCompile Include="Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BouncingBall.h" />
+    <ClInclude Include="DemoState.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="EventListener.h" />
+    <ClInclude Include="EventQueue.h" />
+    <ClInclude Include="EventSystem.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="RaknetInitData.h" />
+    <ClInclude Include="Unit.h" />
+    <ClInclude Include="UnitManager.h" />
+    <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

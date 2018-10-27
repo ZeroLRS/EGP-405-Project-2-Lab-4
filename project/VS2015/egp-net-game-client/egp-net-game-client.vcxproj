@@ -159,34 +159,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DemoState.cpp" />
     <ClCompile Include="Event.cpp" />
-    <ClCompile Include="EventListener.cpp" />
-    <ClCompile Include="EventQueue.cpp" />
-    <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="GraphicsBuffer.cpp" />
     <ClCompile Include="GraphicsBufferManager.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
-    <ClCompile Include="inputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Unit.cpp" />
-    <ClCompile Include="UnitManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DemoState.h" />
-    <ClInclude Include="Event.h" />
-    <ClInclude Include="EventListener.h" />
-    <ClInclude Include="EventQueue.h" />
-    <ClInclude Include="EventSystem.h" />
     <ClInclude Include="GraphicsBuffer.h" />
     <ClInclude Include="GraphicsBufferManager.h" />
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="Header.h" />
-    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Unit.h" />
-    <ClInclude Include="UnitManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

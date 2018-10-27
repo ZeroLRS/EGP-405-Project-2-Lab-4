@@ -63,6 +63,9 @@
     <ClInclude Include="..\egp-net-game-client\Networking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Networking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\egp-net-framework\egp-net\egp-net.cpp">
@@ -82,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="..\egp-net-game-client\Networking.cpp">
       <Filter>Source Files\egp-net</Filter>
+    </ClCompile>
+    <ClCompile Include="Networking.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
