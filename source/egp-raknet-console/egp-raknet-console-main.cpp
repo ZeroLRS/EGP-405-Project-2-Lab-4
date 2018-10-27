@@ -33,7 +33,6 @@
 #include "RakNet/RakNetTypes.h"
 #include "RakNet/BitStream.h"
 
-
 enum GameMessages
 {
 	ID_CUSTOM_MESSAGE_START = ID_USER_PACKET_ENUM,

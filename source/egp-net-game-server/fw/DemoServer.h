@@ -15,12 +15,13 @@
 
 #include "egp-net/fw/egpNetPeerManager.h"
 
+class DemoState;
 
 // server manager
-class egpNetServerPeerManager : public egpNetPeerManager
+class DemoServer : public egpNetPeerManager
 {
-protected: 
 
+protected: 
 	// enumeration of server-generated packet identifiers
 	// (e.g. list things sent by server)
 	enum me_ServerPacketIdentifier
@@ -43,15 +44,15 @@ protected:
 	// return 0 to stop processing packets
 	virtual int ProcessPacket(const RakNet::Packet *const packet, const unsigned int packetIndex) const;
 
+	DataModel mCurrentDataModel;
 
 public: 
 
 	// ctor
-	egpNetServerPeerManager();
+	DemoServer();
 
 	// dtor
-	virtual ~egpNetServerPeerManager();
-
+	virtual ~DemoServer();
 };
 
 

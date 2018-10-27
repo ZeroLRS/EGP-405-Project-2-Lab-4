@@ -37,8 +37,9 @@ void DemoState::handleNetworking()
 
 void DemoState::update()
 {
-	//TODO: CHANGE TO DELTA TIME
 	mpInputManager->updateKeyStates();
+
+	//TODO: PASS IN DELTA TIME
 	mpUnitManager->update(1.0f);
 }
 

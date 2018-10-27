@@ -15,18 +15,20 @@ private:
 
 	bool initSDL();
 	bool runLoop;
+	bool recieveInput;
 
 public:
 	DemoState() = default;
-	~DemoState() = default;
+	virtual ~DemoState() = default;
 
 	static DemoState* getInstance();
 
 	bool init();
 
-	void handleNetworking();
-	void update();
-	void render();
+	virtual void handleNetworking();
+	virtual void update();
+	virtual void render();
+
 	void exitLoop();
 	bool shouldLoop();
 
@@ -34,6 +36,7 @@ public:
 	inline GraphicsBufferManager* getGraphicsBufferManager() { return mpGraphicsBufferManager; };
 	inline UnitManager* getUnitManager() { return mpUnitManager; };
 	inline InputManager* getInputManager() { return mpInputManager; };
-
+	inline bool canRecieveInput() { return recieveInput; };
+	inline bool canRecieveInput(bool _flag) { return recieveInput = _flag; };
 };
 
