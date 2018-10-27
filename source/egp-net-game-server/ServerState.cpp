@@ -1,12 +1,12 @@
 #include "ServerState.h"
-#include "../egp-net-game-client/DemoState.h"
+#include "../project/VS2015/egp-raknet-console/DemoState.h"
 #include <iostream>
 #include <string>
-#include "fw/DemoServer.h"
+#include "DemoServer.h"
 
-ServerState::ServerState(const DemoServer _server)
+ServerState::ServerState(DemoServer* _server)
 {
-	server = &_server;
+	server = _server;
 
 	localState = new DemoState();
 	localState->init();

@@ -14,12 +14,17 @@
 
 
 #include "egp-net/fw/egpNetPeerManager.h"
+#include <vector>
 
 class DemoState;
 class ServerState;
 // server manager
 class DemoServer : public egpNetPeerManager
 {
+private:
+
+	ServerState* currentState;
+	std::vector<RakNet::RakNetGUID> connectedClients;
 
 protected: 
 	// enumeration of server-generated packet identifiers
@@ -38,13 +43,15 @@ protected:
 	};
 
 
+
 	// packet individual packet; function should not change manager
 	//	packet: pointer to packet
 	//	packetIndex: index in sequence of processed packets
 	// return 0 to stop processing packets
 	virtual int ProcessPacket(const RakNet::Packet *const packet, const unsigned int packetIndex) const;
 
-	ServerState* currentState;
+
+	bool hasClient(RakNet::RakNetGUID _clientID);
 
 public: 
 
@@ -53,6 +60,12 @@ public:
 
 	// dtor
 	virtual ~DemoServer();
+
+	void addClient(RakNet::RakNetGUID _ID);
+	void removeClient(RakNet::RakNetGUID _ID);
+
+	void broadcastDemoState();
+	void broadcastDemoState(int _indexToOmit);
 };
 
 
