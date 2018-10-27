@@ -4,6 +4,10 @@ class UnitManager;
 class GraphicsBufferManager;
 class InputManager;
 class EventSystem;
+class BouncingBallManager;
+
+class Sprite;
+class GraphicsBuffer;
 
 class DemoState
 {
@@ -11,7 +15,11 @@ private:
 	GraphicsSystem * mpGraphicsSystem;
 	GraphicsBufferManager* mpGraphicsBufferManager;
 	//UnitManager* mpUnitManager;
+	BouncingBallManager* mpBouncingBallManager;
 	InputManager* mpInputManager;
+
+	Sprite* ballSprite;
+	GraphicsBuffer* ballBuffer;
 
 	bool initSDL();
 	bool runLoop;
@@ -35,6 +43,7 @@ public:
 	inline GraphicsSystem* getGraphicsSystem() { return mpGraphicsSystem; };
 	inline GraphicsBufferManager* getGraphicsBufferManager() { return mpGraphicsBufferManager; };
 	//inline UnitManager* getUnitManager() { return mpUnitManager; };
+	inline BouncingBallManager* getUnitManager() { return mpBouncingBallManager; };
 	inline InputManager* getInputManager() { return mpInputManager; };
 	inline bool canRecieveInput() { return recieveInput; };
 	inline bool canRecieveInput(bool _flag) { return recieveInput = _flag; };
