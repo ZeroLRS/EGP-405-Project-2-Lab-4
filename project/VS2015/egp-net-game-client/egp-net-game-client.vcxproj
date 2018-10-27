@@ -172,7 +172,6 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Unit.cpp" />
     <ClCompile Include="UnitManager.cpp" />
-    <ClCompile Include="Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DemoState.h" />
@@ -188,7 +187,6 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Unit.h" />
     <ClInclude Include="UnitManager.h" />
-    <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
