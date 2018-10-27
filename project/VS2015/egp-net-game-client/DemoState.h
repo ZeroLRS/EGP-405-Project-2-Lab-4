@@ -8,9 +8,9 @@ class EventSystem;
 class DemoState
 {
 private:
-	GraphicsSystem* mpGraphicsSystem;
+	GraphicsSystem * mpGraphicsSystem;
 	GraphicsBufferManager* mpGraphicsBufferManager;
-	UnitManager* mpUnitManager;
+	//UnitManager* mpUnitManager;
 	InputManager* mpInputManager;
 
 	bool initSDL();
@@ -34,7 +34,7 @@ public:
 
 	inline GraphicsSystem* getGraphicsSystem() { return mpGraphicsSystem; };
 	inline GraphicsBufferManager* getGraphicsBufferManager() { return mpGraphicsBufferManager; };
-	inline UnitManager* getUnitManager() { return mpUnitManager; };
+	//inline UnitManager* getUnitManager() { return mpUnitManager; };
 	inline InputManager* getInputManager() { return mpInputManager; };
 	inline bool canRecieveInput() { return recieveInput; };
 	inline bool canRecieveInput(bool _flag) { return recieveInput = _flag; };

@@ -32,3 +32,8 @@ void Vector2::operator -=(Vector2 const &_right)
 	x -= _right.x;
 	y -= _right.y;
 }
+
+Vector2 Vector2::operator*(float const & _right) const
+{
+	return Vector2(x * _right, y * _right);
+}

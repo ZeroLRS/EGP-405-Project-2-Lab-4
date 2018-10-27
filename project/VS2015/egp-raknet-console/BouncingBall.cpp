@@ -1,15 +1,47 @@
 #include "BouncingBall.h"
+#include "BouncingBallManager.h"
 
-void BouncingBall::update()
+BouncingBall::BouncingBall()
 {
-	unitCollide();
-	boundaryCollide();
-	move();
+
 }
 
-void BouncingBall::unitCollide()
+void BouncingBall::update(BouncingBallManager* manager, float dt)
 {
+	unitCollision(manager);
+	boundaryCollide();
+	move(dt);
+}
 
+void BouncingBall::unitCollision(BouncingBallManager* manager)
+{
+	for each (ballUnit* ball in manager->ourBallUnits)
+	{
+		unitCollide(ball->ball);
+	}
+	for each (ballUnit* ball in manager->otherBallUnits)
+	{
+		unitCollide(ball->ball);
+	}
+}
+
+void BouncingBall::unitCollide(BouncingBall * ball)
+{
+	float distx, disty, totaldist;
+
+	// Circle collision (x2-x1)^2 + (y1-y2)^2 <= r^2
+	distx = (ball->position.x - position.x);
+
+	disty = (ball->position.y - position.y);
+
+	totaldist = distx * distx + disty * disty;
+
+	if (totaldist <= radius * radius)
+	{
+		// Add force equal to the inverse of the distance wrt radius
+		// ie. the closer they are at collision, the farther they bounce
+		addImpulse(Vector2(radius - distx, radius - disty));
+	}
 }
 
 void BouncingBall::boundaryCollide()
@@ -32,9 +64,13 @@ void BouncingBall::boundaryCollide()
 	}
 }
 
-void BouncingBall::move()
+void BouncingBall::move(float dt)
 {
-	position += velocity;
+	// Move by our velocity per second
+	position += velocity * (dt / 1000);
+
+	// Push velocity towards normalization
+	//velocity
 }
 
 void BouncingBall::addImpulse(Vector2 direction)

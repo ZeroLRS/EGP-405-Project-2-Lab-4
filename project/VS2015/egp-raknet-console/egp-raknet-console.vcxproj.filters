@@ -48,7 +48,7 @@
     <ClCompile Include="UnitManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DemoState.cpp">
+    <ClCompile Include="BouncingBallManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,7 +83,7 @@
     <ClInclude Include="UnitManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DemoState.h">
+    <ClInclude Include="BouncingBallManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

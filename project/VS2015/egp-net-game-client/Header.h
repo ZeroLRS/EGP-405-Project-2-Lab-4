@@ -13,8 +13,6 @@
 #include "GraphicsSystem.h"
 #include "GraphicsBuffer.h"
 #include "Sprite.h"
-#include "Unit.h"
-#include "UnitManager.h"
 #include "GraphicsBufferManager.h"
 #include "InputManager.h"
 #include "EventSystem.h"

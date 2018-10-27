@@ -12,4 +12,6 @@ struct Vector2
 	Vector2 operator -(Vector2 const &_right) const;
 	void operator +=(Vector2 const &_right);
 	void operator -=(Vector2 const &_right);
+
+	Vector2 operator *(float const &_right) const;
 };

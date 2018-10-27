@@ -27,8 +27,6 @@
     <ClInclude Include="..\..\..\include\egp-net\fw\utils\egpInput.h" />
     <ClInclude Include="..\..\..\include\egp-net\fw\utils\egpThread.h" />
     <ClInclude Include="..\..\..\include\egp-net\fw\utils\egpTimer.h" />
-    <ClInclude Include="..\egp-net-game-client\Networking.h" />
-    <ClInclude Include="Networking.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\egp-net-framework\egp-net\egp-net.cpp" />
@@ -36,8 +34,6 @@
     <ClCompile Include="..\..\..\source\egp-net-framework\egp-net\fw\egpNetPeerManager.cpp" />
     <ClCompile Include="..\..\..\source\egp-net-framework\egp-net\fw\egpNetSerializableDataExample.cpp" />
     <ClCompile Include="..\..\..\source\egp-net-framework\egp-net\fw\utils\egpThread.c" />
-    <ClCompile Include="..\egp-net-game-client\Networking.cpp" />
-    <ClCompile Include="Networking.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\include\egp-net\fw\utils\_inl\egpInput.inl" />

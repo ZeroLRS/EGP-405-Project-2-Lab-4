@@ -23,7 +23,7 @@ bool DemoState::init()
 	mpGraphicsSystem->init();
 
 	mpGraphicsBufferManager = new GraphicsBufferManager();
-	mpUnitManager = new UnitManager();
+	//mpUnitManager = new UnitManager();
 	mpInputManager = new InputManager();
 
 	runLoop = true;
@@ -40,12 +40,12 @@ void DemoState::update()
 	mpInputManager->updateKeyStates();
 
 	//TODO: PASS IN DELTA TIME
-	mpUnitManager->update(1.0f);
+	//mpUnitManager->update(1.0f);
 }
 
 void DemoState::render()
 {
-	mpUnitManager->draw(mpGraphicsSystem);
+	//mpUnitManager->draw(mpGraphicsSystem);
 }
 
 void DemoState::exitLoop()

@@ -174,7 +174,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\source\egp-raknet-console\egp-raknet-console-main.cpp" />
     <ClCompile Include="BouncingBall.cpp" />
-    <ClCompile Include="DemoState.cpp" />
+    <ClCompile Include="BouncingBallManager.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventListener.cpp" />
     <ClCompile Include="EventQueue.cpp" />
@@ -187,7 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BouncingBall.h" />
-    <ClInclude Include="DemoState.h" />
+    <ClInclude Include="BouncingBallManager.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventListener.h" />
     <ClInclude Include="EventQueue.h" />
