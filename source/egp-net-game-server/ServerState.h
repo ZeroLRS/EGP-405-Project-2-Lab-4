@@ -20,7 +20,7 @@ private:
 	const DemoServer* server;
 
 public:
-	ServerState(const DemoServer _server);
+	ServerState(DemoServer* _server);
 	~ServerState();
 
 	void updateDataPush();
