@@ -175,10 +175,12 @@
     <ClCompile Include="..\..\..\source\egp-net-game-server\egp-net-game-server-main.cpp" />
     <ClCompile Include="..\..\..\source\egp-net-game-server\fw\egpNetMasterServerPeerManager.cpp" />
     <ClCompile Include="..\..\..\source\egp-net-game-server\fw\DemoServer.cpp" />
+    <ClCompile Include="ServerState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\source\egp-net-game-server\fw\egpNetMasterServerPeerManager.h" />
     <ClInclude Include="..\..\..\source\egp-net-game-server\fw\DemoServer.h" />
+    <ClInclude Include="ServerState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

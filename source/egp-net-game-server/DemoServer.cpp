@@ -10,8 +10,7 @@
 */
 
 #include "DemoServer.h"
-
-
+#include 
 int DemoServer::ProcessPacket(const RakNet::Packet *const packet, const unsigned int packetIndex) const
 {
 	// ****TO-DO: implement server-specific packet processor
@@ -22,23 +21,10 @@ int DemoServer::ProcessPacket(const RakNet::Packet *const packet, const unsigned
 
 DemoServer::DemoServer()
 {
-	// ****TO-DO
+	currentState = 
 }
 
 DemoServer::~DemoServer()
 {
 	// ****TO-DO
-}
-
-void DemoServer::updateDataPush()
-{
-	
-}
-
-void DemoServer::updateDataShared()
-{
-}
-
-void DemoServer::updateDataCoupled()
-{
 }

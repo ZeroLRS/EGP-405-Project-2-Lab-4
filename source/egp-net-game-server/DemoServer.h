@@ -16,7 +16,7 @@
 #include "egp-net/fw/egpNetPeerManager.h"
 
 class DemoState;
-
+class ServerState;
 // server manager
 class DemoServer : public egpNetPeerManager
 {
@@ -44,7 +44,7 @@ protected:
 	// return 0 to stop processing packets
 	virtual int ProcessPacket(const RakNet::Packet *const packet, const unsigned int packetIndex) const;
 
-	DataModel mCurrentDataModel;
+	ServerState* currentState;
 
 public: 
 

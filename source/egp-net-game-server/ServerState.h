@@ -1,6 +1,8 @@
 #pragma once
 
 class DemoState;
+class DemoServer;
+
 enum DataModel
 {
 	OFFLINE,
@@ -12,12 +14,13 @@ enum DataModel
 class ServerState
 {
 private:
-	DemoState * localState;
+	DemoState* localState;
 
 	DataModel mCurrentDataModel;
+	const DemoServer* server;
 
 public:
-	ServerState();
+	ServerState(const DemoServer _server);
 	~ServerState();
 
 	void updateDataPush();

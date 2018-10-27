@@ -2,9 +2,12 @@
 #include "../egp-net-game-client/DemoState.h"
 #include <iostream>
 #include <string>
+#include "fw/DemoServer.h"
 
-ServerState::ServerState()
+ServerState::ServerState(const DemoServer _server)
 {
+	server = &_server;
+
 	localState = new DemoState();
 	localState->init();
 
