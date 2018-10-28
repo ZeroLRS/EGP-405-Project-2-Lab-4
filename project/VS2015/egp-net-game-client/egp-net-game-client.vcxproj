@@ -109,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(EGP_NET_FW)include\;$(EGP_NET_FW)project\VS2015\egp-raknet-console\;$(EGP_NET_FW)source\egp-raknet-console\;$(EGP_NET_FW)source\$(ProjectName)\;$(DEV_SDK_DIR)include\;$(EGP_NET_FW)include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EGP_NET_FW)include\;$(EGP_NET_FW)source\;$(DEV_SDK_DIR)include\;$(EGP_NET_FW)include\SDL2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -159,25 +159,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DemoState.cpp" />
-    <ClCompile Include="GraphicsBuffer.cpp" />
-    <ClCompile Include="GraphicsBufferManager.cpp" />
-    <ClCompile Include="GraphicsSystem.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="DemoState.h" />
-    <ClInclude Include="GraphicsBuffer.h" />
-    <ClInclude Include="GraphicsBufferManager.h" />
-    <ClInclude Include="GraphicsSystem.h" />
-    <ClInclude Include="Header.h" />
-    <ClInclude Include="Sprite.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\egp-raknet-console\egp-raknet-console.vcxproj">
       <Project>{5ec9c5fe-41ca-468b-9831-2b1e6ba2a614}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\source\egp-raknet-game-client\DemoState.h" />
+    <ClInclude Include="..\..\..\source\egp-raknet-game-client\GraphicsBuffer.h" />
+    <ClInclude Include="..\..\..\source\egp-raknet-game-client\GraphicsBufferManager.h" />
+    <ClInclude Include="..\..\..\source\egp-raknet-game-client\GraphicsSystem.h" />
+    <ClInclude Include="..\..\..\source\egp-raknet-game-client\Header.h" />
+    <ClInclude Include="..\..\..\source\egp-raknet-game-client\Sprite.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\egp-raknet-game-client\DemoState.cpp" />
+    <ClCompile Include="..\..\..\source\egp-raknet-game-client\GraphicsBuffer.cpp" />
+    <ClCompile Include="..\..\..\source\egp-raknet-game-client\GraphicsBufferManager.cpp" />
+    <ClCompile Include="..\..\..\source\egp-raknet-game-client\GraphicsSystem.cpp" />
+    <ClCompile Include="..\..\..\source\egp-raknet-game-client\main.cpp" />
+    <ClCompile Include="..\..\..\source\egp-raknet-game-client\Sprite.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -14,9 +14,9 @@
 #include "GraphicsBuffer.h"
 #include "Sprite.h"
 #include "GraphicsBufferManager.h"
-#include "InputManager.h"
-#include "EventSystem.h"
-#include "Event.h"
+#include "egp-raknet-console/InputManager.h"
+#include "egp-raknet-console/EventSystem.h"
+#include "egp-raknet-console/Event.h"
 
 // REGULAR INCLUDES
 #include <iostream>

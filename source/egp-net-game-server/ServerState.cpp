@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include "DemoServer.h"
-#include "../project/VS2015/egp-net-game-client/DemoState.h"
 
 ServerState::ServerState(DemoServer* _server)
 {

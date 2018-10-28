@@ -1,5 +1,5 @@
 #include "Header.h"
-#include "BouncingBallManager.h"
+#include "egp-raknet-console/BouncingBallManager.h"
 
 DemoState* DemoState::getInstance()
 {
@@ -58,7 +58,7 @@ void DemoState::update()
 
 	std::chrono::microseconds elapsedChronoTime = currentTimeMS - lastTimeMS;
 
-	float elapsedTime = elapsedChronoTime.count();
+	float elapsedTime = (float) elapsedChronoTime.count();
 
 	mpBouncingBallManager->update(elapsedTime / 1000);
 

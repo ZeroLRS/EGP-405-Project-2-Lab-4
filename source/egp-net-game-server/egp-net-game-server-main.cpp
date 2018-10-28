@@ -1,5 +1,5 @@
-#include "../egp-net-game-server/DemoServer.h"
-#include "../egp-net-game-server/ServerState.h"
+#include "DemoServer.h"
+#include "ServerState.h"
 #include <iostream>
 
 bool initServer(DemoServer* _server)
