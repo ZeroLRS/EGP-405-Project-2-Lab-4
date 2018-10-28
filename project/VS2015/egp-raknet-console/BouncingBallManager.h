@@ -16,7 +16,7 @@ public:
 	std::vector<ballUnit*> otherBallUnits;
 	void update(float dt);
 
-	ballUnit* createBallUnit(Vector2 _position, int _id);
+	ballUnit* createBallUnit(Vector2 _position, Vector2 _velocity, int _id);
 
 private:
 

@@ -17,7 +17,9 @@ void BouncingBall::unitCollision(BouncingBallManager* manager)
 {
 	for each (ballUnit* ball in manager->ourBallUnits)
 	{
-		unitCollide(ball->ball);
+		// Make sure we don't count self-collision
+		if (!(ball->ball->position == position))
+			unitCollide(ball->ball);
 	}
 	for each (ballUnit* ball in manager->otherBallUnits)
 	{
@@ -52,7 +54,7 @@ void BouncingBall::boundaryCollide()
 	}
 	if (position.x <= 0)
 	{
-		addImpulse(Vector2(velocity.x * 2, 0));
+		addImpulse(Vector2(-velocity.x * 2, 0));
 	}
 	if (position.y >= 720)
 	{
@@ -60,7 +62,8 @@ void BouncingBall::boundaryCollide()
 	}
 	if (position.y <= 0)
 	{
-		addImpulse(Vector2(0, velocity.y * 2));
+		addImpulse(Vector2(0, -velocity.y * 2));
+		printf("Pos XY: %f, %f\n", position.x, position.y);
 	}
 }
 
@@ -76,4 +79,5 @@ void BouncingBall::move(float dt)
 void BouncingBall::addImpulse(Vector2 direction)
 {
 	velocity += direction;
+	//printf("Impulse XY: %f, %f\n", direction.x, direction.y);
 }

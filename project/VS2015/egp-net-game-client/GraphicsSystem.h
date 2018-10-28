@@ -12,7 +12,7 @@ class GraphicsSystem
 	friend class Font;
 	friend class Color;
 
-	const int mWidth = 880, mHeight = 880;
+	const int mWidth = 1280, mHeight = 720;
 
 	SDL_Window* mpWindow;
 	

@@ -35,7 +35,11 @@ bool DemoState::init()
 	ballSprite = new Sprite(ballBuffer);
 	ballSprite->setHeight(32);
 	ballSprite->setWidth(32);
-	mpBouncingBallManager->createBallUnit(Vector2(200, 200), 4);
+	mpBouncingBallManager->createBallUnit(Vector2(200, 200), Vector2(300, 300), 4);
+
+	//Timing
+	lastTime = std::chrono::system_clock::now();
+	lastTimeMS = std::chrono::time_point_cast<std::chrono::milliseconds>(lastTime);
 
 	return true;
 }
@@ -48,8 +52,17 @@ void DemoState::update()
 {
 	mpInputManager->updateKeyStates();
 
-	//TODO: PASS IN DELTA TIME
-	mpBouncingBallManager->update(1.0f);
+	std::chrono::time_point<std::chrono::system_clock> currentTime = std::chrono::system_clock::now();
+	std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> currentTimeMS
+		= std::chrono::time_point_cast<std::chrono::milliseconds>(currentTime);
+
+	std::chrono::microseconds elapsedChronoTime = currentTimeMS - lastTimeMS;
+
+	float elapsedTime = elapsedChronoTime.count();
+
+	mpBouncingBallManager->update(elapsedTime / 1000);
+
+	lastTimeMS = currentTimeMS;
 }
 
 void DemoState::render()
@@ -61,7 +74,7 @@ void DemoState::render()
 	{
 		getGraphicsSystem()->draw(ballSprite, ball->ball->position.x, ball->ball->position.y);
 
-		printf("XY: %f, %f\n", ball->ball->position.x, ball->ball->position.y);
+		//printf("VXY: %f, %f\n", ball->ball->velocity.x, ball->ball->velocity.y);
 	}
 
 	getGraphicsSystem()->flip();
