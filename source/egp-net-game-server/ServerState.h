@@ -1,7 +1,10 @@
 #pragma once
+#include <map>
+#include <vector>
 
-class DemoState;
+//class DemoState;
 class DemoServer;
+class BallUnit;
 
 namespace RakNet
 {
@@ -19,7 +22,7 @@ enum DataModel
 class ServerState
 {
 private:
-	DemoState* localState;
+	//DemoState* localState;
 
 	DataModel currentDataModel;
 	const DemoServer* server;
@@ -30,12 +33,13 @@ public:
 	ServerState(DemoServer* _server);
 	~ServerState();
 
+	void simulateDemo();
 	void updateDataPush();
 	void updateDataShared();
 	void updateDataCoupled();
 
-	void handleInputPacket(RakNet::Packet _packet);
-	void handleGameStatePacket(RakNet::Packet _packet);
+	void handleInputPacket(const RakNet::Packet *const _packet);
+	void handleGameStatePacket(const RakNet::Packet *const _packet);
 
 	void render();
 

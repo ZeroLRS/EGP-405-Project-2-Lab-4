@@ -73,6 +73,7 @@ protected:
 	{
 		e_id_packetBegin = ID_USER_PACKET_ENUM,
 		e_id_gameStateUpdate,
+		e_id_networkedInput,
 		// ****TO-DO: implement general identifiers
 		// these should be peer-type-agnostic, i.e. either server or client
 		// some suggestions: 
