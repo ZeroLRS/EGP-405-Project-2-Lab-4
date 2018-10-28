@@ -14,6 +14,8 @@ bool initServer(DemoServer* _server)
 	{
 		return false;
 	}
+
+	return true;
 }
 
 int main(int const argc, char const *const *const argv)

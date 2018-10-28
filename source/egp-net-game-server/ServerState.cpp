@@ -8,19 +8,19 @@ ServerState::ServerState(DemoServer* _server)
 {
 	server = _server;
 
-	localState = new DemoState();
-	localState->init();
+	//localState = new DemoState();
+	//localState->init();
 
-	localState->canRecieveInput(false);
+	//localState->canRecieveInput(false);
 }
 
 
 ServerState::~ServerState()
 {
-	if (localState)
-	{
-		delete localState;
-	}
+	//if (localState)
+	//{
+	//	delete localState;
+	//}
 }
 
 std::string getModelAsString(DataModel _model)
@@ -35,14 +35,21 @@ std::string getModelAsString(DataModel _model)
 		return "Shared";
 	case(COUPLED):
 		return "Coupled";
+	default:
+		return "";
 	}
+}
+
+void ServerState::simulateDemo()
+{
 }
 
 void ServerState::updateDataPush()
 {
-	localState->update();
 	//update regularly
 	//if input events are recieved from client recreate them locally
+	//localState->update();
+
 
 	if(shouldSendState())
 		server->broadcastDemoState();
@@ -71,14 +78,17 @@ void ServerState::updateDataCoupled()
 	}
 }
 
-void ServerState::handleInputPacket(RakNet::Packet _packet)
+void ServerState::handleInputPacket(const RakNet::Packet *const _packet)
 {
 
 }
 
-void ServerState::handleGameStatePacket(RakNet::Packet _packet)
+void ServerState::handleGameStatePacket(const RakNet::Packet *const _packet)
 {
-
+	if (currentDataModel == COUPLED)
+	{
+		
+	}
 }
 
 void ServerState::render()

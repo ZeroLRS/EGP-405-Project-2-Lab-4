@@ -15,7 +15,6 @@
 int egpNetMasterServerPeerManager::ProcessPacket(const RakNet::Packet *const packet, const unsigned int packetIndex) const
 {
 	// ****TO-DO: implement master server-specific packet processor
-
 	return 0;
 }
 

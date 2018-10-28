@@ -9,13 +9,27 @@
 
 */
 
-#include "../DemoServer.h"
-#include "../ServerState.h"
+#include "DemoServer.h"
+#include "ServerState.h"
 
 int DemoServer::ProcessPacket(const RakNet::Packet *const packet, const unsigned int packetIndex) const
 {
 	// ****TO-DO: implement server-specific packet processor
 	
+	switch (packet->data[0])
+	{
+		case(e_id_gameStateUpdate):
+		{
+			currentState->handleGameStatePacket(packet);
+			break;
+		}
+		case(e_id_networkedInput):
+		{
+			currentState->handleInputPacket(packet);
+			break;
+		}
+	}
+
 	//if list of units is recieved send them to the unit manager in serverstate
 	//--//
 	//if inputs are recieved and current model is data push send input events to event system
