@@ -32,6 +32,7 @@ public:
 	void draw(Sprite* sprite, float x, float y);
 	void drawMenu(GraphicsBuffer* graphic, int x, int y);
 
+	void clear();
 	void flip();
 	int getWidth();
 	int getHeight();

@@ -9,8 +9,8 @@
 
 */
 
-#include "DemoServer.h"
-#include "ServerState.h"
+#include "../DemoServer.h"
+#include "../ServerState.h"
 
 int DemoServer::ProcessPacket(const RakNet::Packet *const packet, const unsigned int packetIndex) const
 {
@@ -66,12 +66,12 @@ void DemoServer::removeClient(RakNet::RakNetGUID _ID)
 
 }
 
-void DemoServer::broadcastDemoState()
+void DemoServer::broadcastDemoState() const
 {
 	broadcastDemoState(-1);
 }
 
-void DemoServer::broadcastDemoState(int _indexToOmit)
+void DemoServer::broadcastDemoState(int _indexToOmit) const
 {
 	RakNet::BitStream stream;
 
@@ -80,4 +80,9 @@ void DemoServer::broadcastDemoState(int _indexToOmit)
 	//TO-DO: serialize all units
 
 	SendPacket(&stream, _indexToOmit, true, true);
+}
+
+ServerState* DemoServer::getCurrentState() const
+{
+	return currentState;
 }

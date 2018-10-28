@@ -1,4 +1,5 @@
-#include "fw/DemoServer.h"
+#include "../egp-net-game-server/DemoServer.h"
+#include "../egp-net-game-server/ServerState.h"
 #include <iostream>
 
 bool initServer(DemoServer* _server)
@@ -18,6 +19,7 @@ bool initServer(DemoServer* _server)
 int main(int const argc, char const *const *const argv)
 {
 	DemoServer* server = new DemoServer();
+	ServerState* state = server->getCurrentState();
 
 	if (!initServer(server))
 	{
@@ -26,21 +28,21 @@ int main(int const argc, char const *const *const argv)
 
 	while (1)
 	{
-		switch (server->getCurrentModel())
+		switch (state->getCurrentModel())
 		{
 			case(PUSH):
 			{
-				server->updateDataPush();
+				state->updateDataPush();
 				break;
 			}
 			case(SHARE):
 			{
-				server->updateDataShared();
+				state->updateDataShared();
 				break;
 			}
 			case(COUPLED):
 			{
-				server->updateDataCoupled();
+				state->updateDataCoupled();
 				break;
 			}
 		}

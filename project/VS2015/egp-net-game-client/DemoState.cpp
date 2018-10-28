@@ -33,7 +33,8 @@ bool DemoState::init()
 	ballBuffer = new GraphicsBuffer("circle.bmp", 32, 32);
 
 	ballSprite = new Sprite(ballBuffer);
-
+	ballSprite->setHeight(32);
+	ballSprite->setWidth(32);
 	mpBouncingBallManager->createBallUnit(Vector2(200, 200), 4);
 
 	return true;
@@ -53,12 +54,16 @@ void DemoState::update()
 
 void DemoState::render()
 {
+	getGraphicsSystem()->clear();
+
 	//mpUnitManager->draw(mpGraphicsSystem);
 	for (ballUnit* ball : mpBouncingBallManager->ourBallUnits)
 	{
 		getGraphicsSystem()->draw(ballSprite, ball->ball->position.x, ball->ball->position.y);
+
 		printf("XY: %f, %f\n", ball->ball->position.x, ball->ball->position.y);
 	}
+
 	getGraphicsSystem()->flip();
 }
 

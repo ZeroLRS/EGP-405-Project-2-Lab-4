@@ -1,8 +1,8 @@
 #include "ServerState.h"
-#include "../project/VS2015/egp-raknet-console/DemoState.h"
 #include <iostream>
 #include <string>
 #include "DemoServer.h"
+#include "../project/VS2015/egp-net-game-client/DemoState.h"
 
 ServerState::ServerState(DemoServer* _server)
 {
@@ -40,8 +40,12 @@ std::string getModelAsString(DataModel _model)
 
 void ServerState::updateDataPush()
 {
+	localState->update();
 	//update regularly
 	//if input events are recieved from client recreate them locally
+
+	if(shouldSendState())
+		server->broadcastDemoState();
 }
 
 void ServerState::updateDataShared()
@@ -55,6 +59,26 @@ void ServerState::updateDataCoupled()
 	//wait to recieve all messages from clients (has counter of num connected)
 	//when all are recieved set positions and broadcast to all clients
 	//if there are conflicting positions average them
+
+	if (shouldSendState())
+	{
+		//send state to all clients
+		server->broadcastDemoState();
+
+		//prevent state from being sent again until all packets are recieved
+		updatesRecieved = 0;
+		shouldSendState(false);
+	}
+}
+
+void ServerState::handleInputPacket(RakNet::Packet _packet)
+{
+
+}
+
+void ServerState::handleGameStatePacket(RakNet::Packet _packet)
+{
+
 }
 
 void ServerState::render()

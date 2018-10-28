@@ -66,6 +66,12 @@ int GraphicsSystem::getHeight()
 	return mHeight;
 }
 
+void GraphicsSystem::clear()
+{
+	//Fill screen with black
+	SDL_FillRect(getDisplay(), NULL, SDL_MapRGB(getDisplay()->format, 0, 0, 0));
+}
+
 void GraphicsSystem::flip()
 {
 	SDL_UpdateWindowSurface(mpWindow);
@@ -85,13 +91,9 @@ void GraphicsSystem::draw(Sprite* sprite, float x, float y)
 {
 	if (sprite->getBuffer() != NULL)
 	{
-		SDL_Rect srcrect = { sprite->getX(), sprite->getY(), sprite->getHeight(), sprite->getWidth() };
-		SDL_Rect dstrect = { (int)x, (int)y, sprite->getHeight() * sprite->getScalar(), sprite->getWidth() * sprite->getScalar() };
-		SDL_BlitScaled(sprite->getBuffer()->getImage(), &srcrect, mpDisplay, &dstrect);
+		SDL_Rect dstrect = { (int)x, (int)y, sprite->getHeight(), sprite->getWidth() };
+		SDL_BlitScaled(sprite->getBuffer()->getImage(), NULL, mpDisplay, &dstrect);
 	}
-
-
-	//SDL_RenderCopy(mpRenderer, sprite.getBuffer()->getImage(), &srcrect, &dstrect);
 }
 
 

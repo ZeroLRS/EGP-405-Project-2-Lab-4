@@ -64,8 +64,9 @@ public:
 	void addClient(RakNet::RakNetGUID _ID);
 	void removeClient(RakNet::RakNetGUID _ID);
 
-	void broadcastDemoState();
-	void broadcastDemoState(int _indexToOmit);
+	void broadcastDemoState() const;
+	void broadcastDemoState(int _indexToOmit) const;
+	ServerState* getCurrentState() const;
 };
 
 
