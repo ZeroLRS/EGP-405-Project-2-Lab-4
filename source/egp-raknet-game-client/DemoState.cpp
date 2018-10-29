@@ -16,30 +16,22 @@ bool DemoState::initSDL()
 
 bool DemoState::initPush()
 {
-	int randomSeed = std::chrono::system_clock::to_time_t(lastTime);
-	BouncingBall newBall;
-	unsigned int packetSize = 0;
-	newBall.position = Vector2(randomSeed % 1280, randomSeed % 720);
-	newBall.velocity = Vector2(randomSeed % 200 + 200, randomSeed % 200 + 200);
+	for (int i = 0; i < 3; i++)
+	{
+		int randomSeed = std::chrono::system_clock::to_time_t(lastTime);
+		BouncingBall newBall;
+		unsigned int packetSize = 0;
+		newBall.position = Vector2(randomSeed % 1280, randomSeed % 720);
+		newBall.velocity = Vector2(randomSeed % 200 + 200, randomSeed % 200 + 200);
 
-	BouncingBall newBallAgain;
-	unsigned int packetSizeAgain = 0;
-	newBallAgain.position = Vector2(randomSeed*2 % 1280, randomSeed*2 % 720);
-	newBallAgain.velocity = Vector2(randomSeed*2 % 200 + 200, randomSeed*2 % 200 + 200);
+		RakNet::BitStream* bs = new RakNet::BitStream();
+		packetSize += sizeof((char)DemoPeerManager::e_id_spawnNewBall);
+		bs->Write((char)DemoPeerManager::e_id_spawnNewBall);
 
-	RakNet::BitStream* bs = new RakNet::BitStream();
-	packetSize += sizeof((char)DemoPeerManager::e_id_spawnNewBall);
-	bs->Write((char)DemoPeerManager::e_id_spawnNewBall);
+		packetSize += newBall.Serialize(bs);
 
-	RakNet::BitStream* bsAgain = new RakNet::BitStream();
-	packetSize += sizeof((char)DemoPeerManager::e_id_spawnNewBall);
-	bsAgain->Write((char)DemoPeerManager::e_id_spawnNewBall);
-
-	packetSize += newBall.Serialize(bs);
-	packetSizeAgain += newBall.Serialize(bsAgain);
-
-	mpPeerManager->spawnNewBall(bs, packetSize);
-	mpPeerManager->spawnNewBall(bsAgain, packetSizeAgain);
+		mpPeerManager->spawnNewBall(bs, packetSize);
+	}
 	return true;
 }
 
@@ -81,10 +73,16 @@ bool DemoState::init()
 
 		std::string ip;
 		short port;
-		std::cout << "Enter Server IP:\n";
+		std::cout << "Enter Server IP (or . for localhost):\n";
 		std::cin >> ip;
+		if (ip[0] == '.')
+		{
+			ip = "127.0.0.1";
+		}
 		std::cout << "Enter Server Port:\n";
 		std::cin >> port;
+
+		std::cout << "Connecting to server...\n";
 		if (mpPeerManager->Connect(ip.c_str(), port) <= 0)
 		{
 			std::cout << "Could not connect.\n";

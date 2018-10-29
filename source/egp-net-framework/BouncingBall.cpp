@@ -8,7 +8,6 @@ BouncingBall::BouncingBall()
 
 void BouncingBall::update(BouncingBallManager* manager, float dt)
 {
-	printf("Pos XY: %f, %f\n", position.x, position.y);
 	unitCollision(manager);
 	boundaryCollide();
 	move(dt);
@@ -44,6 +43,8 @@ void BouncingBall::unitCollide(BouncingBall * ball)
 		// Add force equal to the inverse of the distance wrt radius
 		// ie. the closer they are at collision, the farther they bounce
 		addImpulse(Vector2(radius - distx, radius - disty));
+		//position.x += radius - distx;
+		//position.y += radius - disty;
 	}
 }
 
@@ -76,8 +77,14 @@ void BouncingBall::move(float dt)
 	// Move by our velocity per second
 	position += velocity * (dt / 1000);
 
-	// Push velocity towards normalization
-	//velocity
+	// Push velocity towards 200, 200
+	float time = dt / 1000;
+	float destX = velocity.x >= 0 ? 200.0f : -200.0f;
+	float destY = velocity.y >= 0 ? 200.0f : -200.0f;
+	velocity.x = abs(velocity.x * (1 - time)) > abs(destX) ? velocity.x * (1 - time) : destX;
+	velocity.y = abs(velocity.y * (1 - time)) > abs(destY) ? velocity.y * (1 - time) : destY;
+
+	printf("t vx vy %f %f %f\n", time, velocity.x, velocity.y);
 }
 
 void BouncingBall::addImpulse(Vector2 direction)

@@ -9,7 +9,7 @@ class BouncingBall : public egpSerializableData
 public:
 	BouncingBall();
 
-	const int radius = 40;
+	const int radius = 30;
 
 	Vector2 position;
 	Vector2 velocity;
