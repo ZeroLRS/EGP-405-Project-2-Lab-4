@@ -1,8 +1,8 @@
-#include "DemoServer.h"
+#include "egp-net-framework/DemoPeerManager.h"
 #include "ServerState.h"
 #include <iostream>
 
-bool initServer(DemoServer* _server)
+bool initServer(DemoPeerManager* _server)
 {
 	int numClients;
 
@@ -20,8 +20,8 @@ bool initServer(DemoServer* _server)
 
 int main(int const argc, char const *const *const argv)
 {
-	DemoServer* server = new DemoServer();
-	ServerState* state = server->getCurrentState();
+	DemoPeerManager* server = DemoPeerManager::getInstance();
+	ServerState* state = new ServerState();
 
 	if (!initServer(server))
 	{
@@ -30,7 +30,7 @@ int main(int const argc, char const *const *const argv)
 
 	while (1)
 	{
-		server->update();
+		state->updateState();
 	}
 
 	return 0;

@@ -3,7 +3,7 @@
 #include <vector>
 
 //class DemoState;
-class DemoServer;
+class DemoPeerManager;
 class BallUnit;
 class BouncingBallManager;
 class InputManager;
@@ -30,7 +30,6 @@ private:
 	InputManager* mpInputManager;
 
 	DataModel currentDataModel;
-	const DemoServer* server;
 	bool runLoop;
 	bool sendGameState;
 	int updatesRecieved;
@@ -40,13 +39,14 @@ private:
 	void updateDataShared();
 	void updateDataCoupled();
 	void switchDataModel(DataModel _nextModel);
+	void broadcastDemoState();
+	void broadcastDemoState(int _indexToOmit);
 
 public:
-	ServerState(DemoServer* _server);
+	ServerState();
 	~ServerState();
 
 	void updateState();
-
 
 	void handleGameStatePacket(const RakNet::Packet *const _packet);
 

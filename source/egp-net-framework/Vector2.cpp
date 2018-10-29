@@ -1,4 +1,5 @@
 #include "Vector2.h"
+#include "DemoPeerManager.h"
 
 Vector2::Vector2(float _x, float _y)
 {
