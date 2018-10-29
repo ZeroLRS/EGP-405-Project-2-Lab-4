@@ -81,3 +81,37 @@ void BouncingBall::addImpulse(Vector2 direction)
 	velocity += direction;
 	//printf("Impulse XY: %f, %f\n", direction.x, direction.y);
 }
+
+int BouncingBall::Serialize(RakNet::BitStream * bs) const
+{
+	if (bs)
+	{
+		unsigned int totalSz = 0;
+
+		totalSz += sizeof(position);
+		bs->Write(position);
+
+		totalSz += sizeof(velocity);
+		bs->Write(velocity);
+
+		return totalSz;
+	}
+	return 0;
+}
+
+int BouncingBall::Deserialize(RakNet::BitStream * bs)
+{
+	if (bs)
+	{
+		unsigned int totalSz = 0;
+
+		totalSz += sizeof(position);
+		bs->Read(position);
+
+		totalSz += sizeof(velocity);
+		bs->Read(velocity);
+
+		return totalSz;
+	}
+	return 0;
+}
