@@ -2,6 +2,7 @@
 
 void BouncingBallManager::update(float dt)
 {
+	std::lock_guard<std::mutex> lock(ballLock);
 	for each (ballUnit* ball in ourBallUnits)
 	{
 		ball->ball->update(this, dt);
@@ -10,6 +11,7 @@ void BouncingBallManager::update(float dt)
 
 ballUnit * BouncingBallManager::createBallUnit(Vector2 _position, Vector2 _velocity, int _id)
 {
+	std::lock_guard<std::mutex> lock(ballLock);
 	ballUnit* newUnit = new ballUnit();
 	newUnit->ball = new BouncingBall();
 	newUnit->ball->position = _position;
@@ -45,6 +47,7 @@ int BouncingBallManager::Serialize(RakNet::BitStream * bs) const
 
 int BouncingBallManager::Deserialize(RakNet::BitStream * bs)
 {
+	std::lock_guard<std::mutex> lock(ballLock);
 	if (bs)
 	{
 		//clean up old ballunits
@@ -58,14 +61,23 @@ int BouncingBallManager::Deserialize(RakNet::BitStream * bs)
 
 		for (int i = 0; i < ballCount; i++)
 		{
-			ballUnit* newBall = new ballUnit;
+			ballUnit* newBall = new ballUnit();
+			newBall->ball = new BouncingBall();
 			totalSz += sizeof(newBall->id);
 			bs->Read(newBall->id);
 
 			totalSz += newBall->ball->Deserialize(bs);
+			ourBallUnits.push_back(newBall);
 		}
 
 		return totalSz;
 	}
 	return 0;
+}
+
+BouncingBallManager* BouncingBallManager::getInstance()
+{
+	static BouncingBallManager instance;
+
+	return &instance;
 }

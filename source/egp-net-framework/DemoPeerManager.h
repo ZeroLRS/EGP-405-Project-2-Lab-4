@@ -50,7 +50,7 @@ public:
 	virtual ~DemoPeerManager();
 
 	static DemoPeerManager* getInstance();
-	void sendGameStatePacket(RakNet::BitStream _gsStream, int _indexToOmit = -1);
+	void sendGameStatePacket(RakNet::BitStream* _gsStream, unsigned int _gsSize);
 };
 
 

@@ -6,21 +6,13 @@
 
 ServerState::ServerState()
 {
-	//server = _server;
-
-	//localState = new DemoState();
-	//localState->init();
-
-	//localState->canRecieveInput(false);
+	
 }
 
 
 ServerState::~ServerState()
 {
-	//if (localState)
-	//{
-	//	delete localState;
-	//}
+	
 }
 
 std::string getModelAsString(DataModel _model)
@@ -70,8 +62,17 @@ void ServerState::updateState()
 
 void ServerState::simulateDemo()
 {
-	//TODO: PASS IN DELTA TIME
-	mpBouncingBallManager->update(1.0f);
+	std::chrono::time_point<std::chrono::system_clock> currentTime = std::chrono::system_clock::now();
+	std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> currentTimeMS
+		= std::chrono::time_point_cast<std::chrono::milliseconds>(currentTime);
+
+	std::chrono::microseconds elapsedChronoTime = currentTimeMS - lastTimeMS;
+
+	float elapsedTime = (float)elapsedChronoTime.count();
+
+	mpBouncingBallManager->update(elapsedTime / 1000);
+
+	lastTimeMS = currentTimeMS;
 }
 
 void ServerState::updateDataPush()
@@ -79,8 +80,16 @@ void ServerState::updateDataPush()
 	//update regularly
 	simulateDemo();
 
-	if (shouldSendState())
-		return;//server->broadcastDemoState();
+
+	std::lock_guard<std::mutex> lock(mpBouncingBallManager->ballLock);
+	RakNet::BitStream* bs = new RakNet::BitStream();
+	unsigned int packetSize = 0;
+	packetSize += sizeof((char)DemoPeerManager::e_id_gameStateUpdate);
+	printf("PacketSize: %i", packetSize);
+	bs->Write((char)DemoPeerManager::e_id_gameStateUpdate);
+	packetSize += mpBouncingBallManager->Serialize(bs);
+	DemoPeerManager::getInstance()->sendGameStatePacket(bs, packetSize);
+	
 }
 
 void ServerState::updateDataShared()
@@ -183,4 +192,61 @@ void ServerState::broadcastDemoState(int _indexToOmit)
 	//TO-DO: serialize all units
 
 	//DemoPeerManager::getInstance()->SendPacket(&stream, _indexToOmit, true, true);
+}
+
+bool ServerState::initPush()
+{
+	mpBouncingBallManager->createBallUnit(Vector2(300, 300), Vector2(-300, -300), 1);
+	mpBouncingBallManager->createBallUnit(Vector2(400, 600), Vector2(300, 500), 2);
+
+	return true;
+}
+
+bool ServerState::init()
+{
+	mpBouncingBallManager = BouncingBallManager::getInstance();;
+
+	std::string modelSelect;
+	std::cout << "Select Model:\n\tData (P)ush\n\tData (S)hare\n\tData (C)oupled\n";
+	std::cin >> modelSelect;
+	if (modelSelect[0] == 'p' || modelSelect[0] == 'P')
+	{
+		currentDataModel = PUSH;
+		initPush();
+	}
+	else if (modelSelect[0] == 's' || modelSelect[0] == 'S')
+	{
+		currentDataModel = SHARE;
+	}
+	else if (modelSelect[0] == 'c' || modelSelect[0] == 'C')
+	{
+		currentDataModel = COUPLED;
+	}
+	else
+	{
+		std::cout << "\n\nERROR, invalid input.\n";
+		system("pause");
+		return false;
+	}
+
+	int numClients;
+	int port;
+	std::cout << "Enter maximum number of clients: \n";
+
+	std::cin >> numClients;
+
+	std::cout << "Enter server port: \n";
+	std::cin >> port;
+
+	if (!DemoPeerManager::getInstance()->StartupNetworking(false, numClients, port, true))
+	{
+		return false;
+	}
+
+	//Timing
+	lastTime = std::chrono::system_clock::now();
+	lastTimeMS = std::chrono::time_point_cast<std::chrono::milliseconds>(lastTime);
+
+	return true;
+
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "BouncingBall.h"
+#include <mutex>
 
 struct ballUnit
 {
@@ -26,6 +27,8 @@ public:
 	// override deserialize from base class
 	virtual int Deserialize(RakNet::BitStream *bs);
 
+	std::mutex ballLock;
+
 	// aggregation
 	// make your own cctor or assign op
 	// cctor
@@ -40,6 +43,7 @@ public:
 	// move assign
 	BouncingBallManager &operator =(BouncingBallManager &&) = delete;
 
+	static BouncingBallManager* getInstance();
 private:
 
 };

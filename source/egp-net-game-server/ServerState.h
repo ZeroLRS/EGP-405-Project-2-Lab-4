@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include <vector>
+#include <chrono>
 
 //class DemoState;
 class DemoPeerManager;
@@ -15,10 +16,10 @@ namespace RakNet
 
 enum DataModel
 {
-	OFFLINE,
-	PUSH,
+	PUSH = 0,
 	SHARE,
-	COUPLED
+	COUPLED,
+	OFFLINE
 };
 
 class ServerState
@@ -42,9 +43,19 @@ private:
 	void broadcastDemoState();
 	void broadcastDemoState(int _indexToOmit);
 
+	bool initPush();
+	//bool initShare();
+	//bool initCoupled();
+
+	//Timing
+	std::chrono::time_point<std::chrono::system_clock> lastTime;
+	std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> lastTimeMS;
+
 public:
 	ServerState();
 	~ServerState();
+
+	bool init();
 
 	void updateState();
 

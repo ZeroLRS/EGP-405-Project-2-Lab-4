@@ -8,6 +8,7 @@ BouncingBall::BouncingBall()
 
 void BouncingBall::update(BouncingBallManager* manager, float dt)
 {
+	printf("Pos XY: %f, %f\n", position.x, position.y);
 	unitCollision(manager);
 	boundaryCollide();
 	move(dt);
@@ -63,7 +64,6 @@ void BouncingBall::boundaryCollide()
 	if (position.y <= 0)
 	{
 		addImpulse(Vector2(0, -velocity.y * 2));
-		printf("Pos XY: %f, %f\n", position.x, position.y);
 	}
 }
 

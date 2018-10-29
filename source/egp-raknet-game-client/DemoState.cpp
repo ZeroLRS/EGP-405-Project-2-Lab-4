@@ -1,5 +1,6 @@
 #include "Header.h"
 #include "egp-net-framework/BouncingBallManager.h"
+#include <mutex>
 
 DemoState* DemoState::getInstance()
 {
@@ -38,26 +39,29 @@ bool DemoState::init()
 	}
 
 	// Connect to server
-	mpPeerManager = DemoPeerManager::getInstance();
-	
-	if (mpPeerManager->StartupNetworking(true, 0, 0, true) == 0)
+	if (mSelectedModel != NOT_NETWORKED)
 	{
-		std::cout << "Network startup failed.\n";
-		system("pause");
-		return false;
-	}
+		mpPeerManager = DemoPeerManager::getInstance();
 
-	std::string ip;
-	short port;
-	std::cout << "Enter Server IP:\n";
-	std::cin >> ip;
-	std::cout << "Enter Server Port:\n";
-	std::cin >> port;
-	if (mpPeerManager->Connect(ip.c_str(), port) <= 0)
-	{
-		std::cout << "Could not connect.\n";
-		system("pause");
-		return false;
+		if (mpPeerManager->StartupNetworking(true, 0, 0, true) == 0)
+		{
+			std::cout << "Network startup failed.\n";
+			system("pause");
+			return false;
+		}
+
+		std::string ip;
+		short port;
+		std::cout << "Enter Server IP:\n";
+		std::cin >> ip;
+		std::cout << "Enter Server Port:\n";
+		std::cin >> port;
+		if (mpPeerManager->Connect(ip.c_str(), port) <= 0)
+		{
+			std::cout << "Could not connect.\n";
+			system("pause");
+			return false;
+		}
 	}
 
 	if (!initSDL())
@@ -70,7 +74,7 @@ bool DemoState::init()
 
 	mpGraphicsBufferManager = new GraphicsBufferManager();
 	//mpUnitManager = new UnitManager();
-	mpBouncingBallManager = new BouncingBallManager();
+	mpBouncingBallManager = BouncingBallManager::getInstance();
 	mpInputManager = new InputManager();
 
 	runLoop = true;
@@ -98,7 +102,7 @@ void DemoState::update()
 	mpInputManager->updateKeyStates();
 
 	std::chrono::time_point<std::chrono::system_clock> currentTime = std::chrono::system_clock::now();
-	std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> currentTimeMS
+	std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> currentTimeMS 
 		= std::chrono::time_point_cast<std::chrono::milliseconds>(currentTime);
 
 	std::chrono::microseconds elapsedChronoTime = currentTimeMS - lastTimeMS;

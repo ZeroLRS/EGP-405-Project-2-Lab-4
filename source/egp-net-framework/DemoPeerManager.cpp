@@ -10,6 +10,9 @@
 */
 
 #include "DemoPeerManager.h"
+#include <iostream>
+#include "BouncingBallManager.h"
+#include <mutex>
 
 int DemoPeerManager::ProcessPacket(const RakNet::Packet *const packet, const unsigned int packetIndex) const
 {
@@ -19,9 +22,15 @@ int DemoPeerManager::ProcessPacket(const RakNet::Packet *const packet, const uns
 	{
 		case(e_id_gameStateUpdate):
 		{
+			RakNet::BitStream stream(packet->data, packet->length, false);
+
+			stream.IgnoreBytes(sizeof((char)e_id_gameStateUpdate));
+
+			BouncingBallManager::getInstance()->Deserialize(&stream);
 			break;
 		}
 		default:
+			std::cout << "ID" << packet->data[0] << std::endl;
 			break;
 	}
 
@@ -43,9 +52,14 @@ DemoPeerManager::~DemoPeerManager()
 
 DemoPeerManager* DemoPeerManager::getInstance()
 {
-	static DemoPeerManager* instance;
+	static DemoPeerManager instance;
 
-	return instance;
+	return &instance;
+}
+
+void DemoPeerManager::sendGameStatePacket(RakNet::BitStream* _gsStream, unsigned int _gsSize)
+{
+	SendPacket(_gsStream, -1, true, true);
 }
 
 //void DemoPeerManager::sendAllPackets()
