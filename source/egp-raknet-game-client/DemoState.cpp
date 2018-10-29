@@ -37,6 +37,29 @@ bool DemoState::init()
 		mSelectedModel = NOT_NETWORKED;
 	}
 
+	// Connect to server
+	mpPeerManager = DemoPeerManager::getInstance();
+	
+	if (mpPeerManager->StartupNetworking(true, 0, 0, true) == 0)
+	{
+		std::cout << "Network startup failed.\n";
+		system("pause");
+		return false;
+	}
+
+	std::string ip;
+	short port;
+	std::cout << "Enter Server IP:\n";
+	std::cin >> ip;
+	std::cout << "Enter Server Port:\n";
+	std::cin >> port;
+	if (mpPeerManager->Connect(ip.c_str(), port) <= 0)
+	{
+		std::cout << "Could not connect.\n";
+		system("pause");
+		return false;
+	}
+
 	if (!initSDL())
 	{
 		return false;

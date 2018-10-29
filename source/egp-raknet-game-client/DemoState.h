@@ -1,4 +1,7 @@
 #pragma once
+
+#define _WINSOCKAPI_
+
 class GraphicsSystem;
 class UnitManager;
 class GraphicsBufferManager;
@@ -10,6 +13,7 @@ class Sprite;
 class GraphicsBuffer;
 
 #include <chrono>
+#include "egp-net-framework/DemoPeerManager.h"
 
 class DemoState
 {
@@ -33,6 +37,7 @@ private:
 		NOT_NETWORKED
 	};
 	NetworkModel mSelectedModel;
+	DemoPeerManager* mpPeerManager;
 
 	bool initSDL();
 	bool runLoop;

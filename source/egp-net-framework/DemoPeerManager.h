@@ -12,7 +12,6 @@
 #ifndef __EGPNET_SERVERPEERMANAGER_H_
 #define __EGPNET_SERVERPEERMANAGER_H_
 
-
 #include "egp-net/fw/egpNetPeerManager.h"
 #include <vector>
 

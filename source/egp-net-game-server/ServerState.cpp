@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include "egp-net-framework/BouncingBallManager.h"
-#include "egp-raknet-console/InputManager.h"
 #include "egp-net-framework/DemoPeerManager.h"
 
 ServerState::ServerState()
@@ -44,8 +43,6 @@ std::string getModelAsString(DataModel _model)
 void ServerState::updateState()
 {
 
-	mpInputManager->updateKeyStates();
-
 	switch (getCurrentModel())
 	{
 		case(PUSH):
@@ -69,21 +66,6 @@ void ServerState::updateState()
 		}
 	}
 
-	if (mpInputManager->getKeyDown(0x31))// 1
-	{
-		if (getCurrentModel() != PUSH)
-			switchDataModel(PUSH);
-	}
-	else if (mpInputManager->getKeyDown(0x32))// 2
-	{
-		if (getCurrentModel() != SHARE)
-			switchDataModel(SHARE);
-	}
-	else if (mpInputManager->getKeyDown(0x33))// 3
-	{
-		if (getCurrentModel() != COUPLED)
-			switchDataModel(COUPLED);
-	}
 }
 
 void ServerState::simulateDemo()

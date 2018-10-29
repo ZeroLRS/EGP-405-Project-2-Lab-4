@@ -170,7 +170,6 @@
     <ClInclude Include="..\..\..\source\egp-raknet-game-client\GraphicsSystem.h" />
     <ClInclude Include="..\..\..\source\egp-raknet-game-client\Header.h" />
     <ClInclude Include="..\..\..\source\egp-raknet-game-client\Sprite.h" />
-    <ClInclude Include="DemoClient.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\egp-raknet-game-client\DemoState.cpp" />
@@ -179,7 +178,6 @@
     <ClCompile Include="..\..\..\source\egp-raknet-game-client\GraphicsSystem.cpp" />
     <ClCompile Include="..\..\..\source\egp-raknet-game-client\main.cpp" />
     <ClCompile Include="..\..\..\source\egp-raknet-game-client\Sprite.cpp" />
-    <ClCompile Include="DemoClient.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
