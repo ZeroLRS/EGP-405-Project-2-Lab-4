@@ -43,6 +43,10 @@ private:
 	bool runLoop;
 	bool recieveInput;
 
+	bool initPush();
+	//bool initShare();
+	//bool initCoupled();
+
 	//Timing
 	std::chrono::time_point<std::chrono::system_clock> lastTime;
 	std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> lastTimeMS;

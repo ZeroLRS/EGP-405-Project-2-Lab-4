@@ -14,6 +14,23 @@ bool DemoState::initSDL()
 	return (SDL_Init(SDL_INIT_EVERYTHING) < 0) ? false : true;
 }
 
+bool DemoState::initPush()
+{
+	int randomSeed = std::chrono::system_clock::to_time_t(lastTime);
+	BouncingBall newBall;
+	unsigned int packetSize = 0;
+	newBall.position = Vector2(randomSeed % 1280, randomSeed % 720);
+	newBall.velocity = Vector2(randomSeed % 200 + 200, randomSeed % 200 + 200);
+
+	RakNet::BitStream* bs = new RakNet::BitStream();
+	packetSize += sizeof((char)DemoPeerManager::e_id_spawnNewBall);
+	bs->Write((char)DemoPeerManager::e_id_spawnNewBall);
+
+	packetSize += newBall.Serialize(bs);
+	mpPeerManager->spawnNewBall(bs, packetSize);
+	return true;
+}
+
 bool DemoState::init()
 {
 	std::string modelSelect;
@@ -84,11 +101,21 @@ bool DemoState::init()
 	ballSprite = new Sprite(ballBuffer);
 	ballSprite->setHeight(32);
 	ballSprite->setWidth(32);
-	mpBouncingBallManager->createBallUnit(Vector2(200, 200), Vector2(300, 300), 4);
+	if (mSelectedModel == NOT_NETWORKED)
+		mpBouncingBallManager->createBallUnit(Vector2(200, 200), Vector2(300, 300), 4);
 
 	//Timing
 	lastTime = std::chrono::system_clock::now();
 	lastTimeMS = std::chrono::time_point_cast<std::chrono::milliseconds>(lastTime);
+
+	switch (mSelectedModel)
+	{
+	case DATA_PUSH:
+		initPush();
+		break;
+	default:
+		break;
+	}
 
 	return true;
 }
@@ -107,11 +134,11 @@ void DemoState::update()
 		std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> currentTimeMS
 			= std::chrono::time_point_cast<std::chrono::milliseconds>(currentTime);
 
-		std::chrono::microseconds elapsedChronoTime = currentTimeMS - lastTimeMS;
+		std::chrono::milliseconds elapsedChronoTime = currentTimeMS - lastTimeMS;
 
 		float elapsedTime = (float)elapsedChronoTime.count();
 
-		mpBouncingBallManager->update(elapsedTime / 1000);
+		mpBouncingBallManager->update(elapsedTime);
 
 		lastTimeMS = currentTimeMS;
 	}

@@ -29,6 +29,22 @@ int DemoPeerManager::ProcessPacket(const RakNet::Packet *const packet, const uns
 			BouncingBallManager::getInstance()->Deserialize(&stream);
 			break;
 		}
+		case(e_id_spawnNewBall):
+		{
+			RakNet::BitStream stream(packet->data, packet->length, false);
+
+			stream.IgnoreBytes(sizeof((char)e_id_spawnNewBall));
+
+			BouncingBall newBall;
+			newBall.Deserialize(&stream);
+
+			printf("New Ball Pos: %f, %f\nNew Ball Vel: %f, %f",
+				newBall.position.x, newBall.position.y,
+				newBall.velocity.x, newBall.velocity.y);
+
+			BouncingBallManager::getInstance()->createBallUnit(newBall.position, newBall.velocity, 3);
+			break;
+		}
 		default:
 			std::cout << "ID" << packet->data[0] << std::endl;
 			break;
@@ -60,6 +76,11 @@ DemoPeerManager* DemoPeerManager::getInstance()
 void DemoPeerManager::sendGameStatePacket(RakNet::BitStream* _gsStream, unsigned int _gsSize)
 {
 	SendPacket(_gsStream, -1, true, true);
+}
+
+void DemoPeerManager::spawnNewBall(RakNet::BitStream * _bStream, unsigned int _bSize)
+{
+	SendPacket(_bStream, -1, true, true);
 }
 
 //void DemoPeerManager::sendAllPackets()

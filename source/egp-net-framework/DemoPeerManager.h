@@ -32,6 +32,7 @@ public:
 		e_id_gameStateUpdate,
 		e_id_updateBouncingBalls,
 		e_id_coupledGameStateUpdate,
+		e_id_spawnNewBall,
 		// ****TO-DO: implement general identifiers
 		// these should be peer-type-agnostic, i.e. either server or client
 		// some suggestions: 
@@ -51,6 +52,7 @@ public:
 
 	static DemoPeerManager* getInstance();
 	void sendGameStatePacket(RakNet::BitStream* _gsStream, unsigned int _gsSize);
+	void spawnNewBall(RakNet::BitStream* _bStream, unsigned int _bSize);
 };
 
 

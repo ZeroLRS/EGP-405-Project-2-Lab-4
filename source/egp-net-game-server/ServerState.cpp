@@ -85,7 +85,7 @@ void ServerState::updateDataPush()
 	RakNet::BitStream* bs = new RakNet::BitStream();
 	unsigned int packetSize = 0;
 	packetSize += sizeof((char)DemoPeerManager::e_id_gameStateUpdate);
-	printf("PacketSize: %i", packetSize);
+	//printf("PacketSize: %i", packetSize);
 	bs->Write((char)DemoPeerManager::e_id_gameStateUpdate);
 	packetSize += mpBouncingBallManager->Serialize(bs);
 	DemoPeerManager::getInstance()->sendGameStatePacket(bs, packetSize);
@@ -196,8 +196,8 @@ void ServerState::broadcastDemoState(int _indexToOmit)
 
 bool ServerState::initPush()
 {
-	mpBouncingBallManager->createBallUnit(Vector2(300, 300), Vector2(-300, -300), 1);
-	mpBouncingBallManager->createBallUnit(Vector2(400, 600), Vector2(300, 500), 2);
+	//mpBouncingBallManager->createBallUnit(Vector2(300, 300), Vector2(-300, -300), 1);
+	//mpBouncingBallManager->createBallUnit(Vector2(400, 600), Vector2(300, 500), 2);
 
 	return true;
 }
