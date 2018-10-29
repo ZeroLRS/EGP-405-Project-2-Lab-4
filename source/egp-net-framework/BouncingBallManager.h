@@ -2,30 +2,30 @@
 #include <vector>
 #include "BouncingBall.h"
 #include <mutex>
-
-struct ballUnit
-{
-	BouncingBall* ball;
-	int id;
-};
+#include "RakNet/NetworkIDManager.h"
 
 class BouncingBallManager : public egpSerializableData
 {
 	
 public:
-	BouncingBallManager() {};
+	BouncingBallManager()
+	{
+		netIDManager = new RakNet::NetworkIDManager();
+	}
 
-	std::vector<ballUnit*> ourBallUnits;
-	std::vector<ballUnit*> otherBallUnits;
+	std::vector<BouncingBall*> ourBallUnits;
+	std::vector<BouncingBall*> otherBallUnits;
 	void update(float dt);
 
-	ballUnit* createBallUnit(Vector2 _position, Vector2 _velocity, int _id);
+	BouncingBall* createBallUnit(Vector2 _position, Vector2 _velocity);
 	
 	// override serialize from base class
 	virtual int Serialize(RakNet::BitStream *bs) const;
 
 	// override deserialize from base class
 	virtual int Deserialize(RakNet::BitStream *bs);
+
+	RakNet::NetworkIDManager* netIDManager;
 
 	std::mutex ballLock;
 

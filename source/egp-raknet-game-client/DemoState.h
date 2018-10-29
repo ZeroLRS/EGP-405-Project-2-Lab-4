@@ -14,6 +14,7 @@ class GraphicsBuffer;
 
 #include <chrono>
 #include "egp-net-framework/DemoPeerManager.h"
+#include "RakNet/NetworkIDManager.h"
 
 class DemoState
 {
@@ -44,7 +45,7 @@ private:
 	bool recieveInput;
 
 	bool initPush();
-	//bool initShare();
+	bool initShare();
 	//bool initCoupled();
 
 	//Timing

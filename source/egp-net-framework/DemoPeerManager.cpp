@@ -42,7 +42,7 @@ int DemoPeerManager::ProcessPacket(const RakNet::Packet *const packet, const uns
 				newBall.position.x, newBall.position.y,
 				newBall.velocity.x, newBall.velocity.y);
 
-			BouncingBallManager::getInstance()->createBallUnit(newBall.position, newBall.velocity, 3);
+			BouncingBallManager::getInstance()->createBallUnit(newBall.position, newBall.velocity);
 			break;
 		}
 		default:

@@ -3,20 +3,21 @@
 void BouncingBallManager::update(float dt)
 {
 	std::lock_guard<std::mutex> lock(ballLock);
-	for each (ballUnit* ball in ourBallUnits)
+	for each (BouncingBall* ball in ourBallUnits)
 	{
-		ball->ball->update(this, dt);
+		ball->update(this, dt);
 	}
 }
 
-ballUnit * BouncingBallManager::createBallUnit(Vector2 _position, Vector2 _velocity, int _id)
+BouncingBall * BouncingBallManager::createBallUnit(Vector2 _position, Vector2 _velocity)
 {
 	std::lock_guard<std::mutex> lock(ballLock);
-	ballUnit* newUnit = new ballUnit();
-	newUnit->ball = new BouncingBall();
-	newUnit->ball->position = _position;
-	newUnit->ball->velocity = _velocity;
-	newUnit->id = _id;
+	BouncingBall* newUnit = new BouncingBall();
+	newUnit = new BouncingBall();
+	newUnit->position = _position;
+	newUnit->velocity = _velocity;
+	newUnit->netID.SetNetworkIDManager(netIDManager);
+	newUnit->netID.GetNetworkID();
 
 	ourBallUnits.push_back(newUnit);
 
@@ -32,12 +33,10 @@ int BouncingBallManager::Serialize(RakNet::BitStream * bs) const
 		totalSz += sizeof(ourBallUnits.size());
 		bs->Write(ourBallUnits.size());
 
-		for (ballUnit* b : ourBallUnits)
+		for (BouncingBall* b : ourBallUnits)
 		{
-			totalSz += sizeof(b->id);
-			bs->Write(b->id);
 
-			totalSz += b->ball->Serialize(bs);
+			totalSz += b->Serialize(bs);
 		}
 
 		return totalSz;
@@ -51,7 +50,7 @@ int BouncingBallManager::Deserialize(RakNet::BitStream * bs)
 	if (bs)
 	{
 		//clean up old ballunits
-		ourBallUnits.clear();
+		//ourBallUnits.clear();
 
 		unsigned int totalSz = 0;
 		size_t ballCount = 0;
@@ -61,13 +60,22 @@ int BouncingBallManager::Deserialize(RakNet::BitStream * bs)
 
 		for (int i = 0; i < ballCount; i++)
 		{
-			ballUnit* newBall = new ballUnit();
-			newBall->ball = new BouncingBall();
-			totalSz += sizeof(newBall->id);
-			bs->Read(newBall->id);
+			BouncingBall* newBall = new BouncingBall();
+			newBall = new BouncingBall();
 
-			totalSz += newBall->ball->Deserialize(bs);
-			ourBallUnits.push_back(newBall);
+			totalSz += newBall->Deserialize(bs);
+
+			bool found = false;
+			for (BouncingBall* currentBall : ourBallUnits)
+			{
+				if (currentBall->netID_int == newBall->netID_int)
+					found = true;
+			}
+
+			if (!found)
+			{
+				ourBallUnits.push_back(newBall);
+			}
 		}
 
 		return totalSz;

@@ -15,15 +15,15 @@ void BouncingBall::update(BouncingBallManager* manager, float dt)
 
 void BouncingBall::unitCollision(BouncingBallManager* manager)
 {
-	for each (ballUnit* ball in manager->ourBallUnits)
+	for each (BouncingBall* ball in manager->ourBallUnits)
 	{
 		// Make sure we don't count self-collision
-		if (!(ball->ball->position == position))
-			unitCollide(ball->ball);
+		if (!(ball->position == position))
+			unitCollide(ball);
 	}
-	for each (ballUnit* ball in manager->otherBallUnits)
+	for each (BouncingBall* ball in manager->otherBallUnits)
 	{
-		unitCollide(ball->ball);
+		unitCollide(ball);
 	}
 }
 
@@ -84,7 +84,7 @@ void BouncingBall::move(float dt)
 	velocity.x = abs(velocity.x * (1 - time)) > abs(destX) ? velocity.x * (1 - time) : destX;
 	velocity.y = abs(velocity.y * (1 - time)) > abs(destY) ? velocity.y * (1 - time) : destY;
 
-	printf("t vx vy %f %f %f\n", time, velocity.x, velocity.y);
+	//printf("t vx vy %f %f %f\n", time, velocity.x, velocity.y);
 }
 
 void BouncingBall::addImpulse(Vector2 direction)
@@ -105,6 +105,9 @@ int BouncingBall::Serialize(RakNet::BitStream * bs) const
 		totalSz += sizeof(velocity);
 		bs->Write(velocity);
 
+		totalSz += sizeof(RakNet::NetworkID);
+		bs->Write(netID_int);
+
 		return totalSz;
 	}
 	return 0;
@@ -121,6 +124,29 @@ int BouncingBall::Deserialize(RakNet::BitStream * bs)
 
 		totalSz += sizeof(velocity);
 		bs->Read(velocity);
+
+		netID.SetNetworkIDManager(BouncingBallManager::getInstance()->netIDManager);
+
+		totalSz += sizeof(RakNet::NetworkID);
+		bs->Read(netID_int);
+
+		BouncingBall* existingBall = netID.GetNetworkIDManager()->GET_OBJECT_FROM_ID<BouncingBall*>(netID_int);
+		if (existingBall == nullptr)
+		{
+			netID.SetNetworkID(netID_int);
+		}
+		else
+		{
+			for (BouncingBall* currentBall : BouncingBallManager::getInstance()->ourBallUnits)
+			{
+				if (currentBall->netID_int == netID_int)
+				{
+					currentBall->position = position;
+					currentBall->velocity = velocity;
+					return totalSz;
+				}
+			}
+		}
 
 		return totalSz;
 	}

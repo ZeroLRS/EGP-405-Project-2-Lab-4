@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector2.h"
 #include "egp-net/fw/egpNetSerializableData.h"
+#include "RakNet/NetworkIDObject.h"
 
 class BouncingBallManager;
 
@@ -15,6 +16,9 @@ public:
 	Vector2 velocity;
 
 	void update(BouncingBallManager* manager, float dt);
+
+	RakNet::NetworkIDObject netID;
+	RakNet::NetworkID netID_int;
 
 private:
 	void unitCollision(BouncingBallManager* manager);

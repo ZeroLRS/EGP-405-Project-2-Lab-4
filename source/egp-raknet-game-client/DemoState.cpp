@@ -23,6 +23,8 @@ bool DemoState::initPush()
 		unsigned int packetSize = 0;
 		newBall.position = Vector2(randomSeed % 1280, randomSeed % 720);
 		newBall.velocity = Vector2(randomSeed % 200 + 200, randomSeed % 200 + 200);
+		newBall.netID.SetNetworkIDManager(mpBouncingBallManager->netIDManager);
+		newBall.netID_int = newBall.netID.GetNetworkID();
 
 		RakNet::BitStream* bs = new RakNet::BitStream();
 		packetSize += sizeof((char)DemoPeerManager::e_id_spawnNewBall);
@@ -33,6 +35,11 @@ bool DemoState::initPush()
 		mpPeerManager->spawnNewBall(bs, packetSize);
 	}
 	return true;
+}
+
+bool DemoState::initShare()
+{
+	return false;
 }
 
 bool DemoState::init()
@@ -112,7 +119,7 @@ bool DemoState::init()
 	ballSprite->setHeight(32);
 	ballSprite->setWidth(32);
 	if (mSelectedModel == NOT_NETWORKED)
-		mpBouncingBallManager->createBallUnit(Vector2(200, 200), Vector2(300, 300), 4);
+		mpBouncingBallManager->createBallUnit(Vector2(200, 200), Vector2(300, 300));
 
 	//Timing
 	lastTime = std::chrono::system_clock::now();
@@ -156,14 +163,15 @@ void DemoState::update()
 
 void DemoState::render()
 {
+
 	getGraphicsSystem()->clear();
 
-	//mpUnitManager->draw(mpGraphicsSystem);
-	for (ballUnit* ball : mpBouncingBallManager->ourBallUnits)
-	{
-		getGraphicsSystem()->draw(ballSprite, ball->ball->position.x, ball->ball->position.y);
+	std::lock_guard<std::mutex> lock(mpBouncingBallManager->ballLock);
 
-		//printf("VXY: %f, %f\n", ball->ball->velocity.x, ball->ball->velocity.y);
+	for (BouncingBall* ball : mpBouncingBallManager->ourBallUnits)
+	{
+		getGraphicsSystem()->draw(ballSprite, ball->position.x, ball->position.y);
+		printf("pos x, y: %f, %f\n", ball->position.x, ball->position.y);
 	}
 
 	getGraphicsSystem()->flip();
