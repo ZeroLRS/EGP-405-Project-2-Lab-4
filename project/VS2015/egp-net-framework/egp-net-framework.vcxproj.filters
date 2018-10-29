@@ -60,6 +60,15 @@
     <ClInclude Include="..\..\..\include\egp-net\fw\egpNetSerializableDataExample.h">
       <Filter>Header Files\egp-net\fw</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\egp-net-framework\Vector2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\egp-net-framework\BouncingBall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\egp-net-framework\BouncingBallManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\egp-net-framework\egp-net\egp-net.cpp">
@@ -76,6 +85,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\egp-net-framework\egp-net\fw\egpNetSerializableDataExample.cpp">
       <Filter>Source Files\egp-net\fw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\egp-net-framework\BouncingBall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\egp-net-framework\BouncingBallManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\egp-net-framework\Vector2.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

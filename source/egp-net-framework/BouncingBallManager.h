@@ -12,6 +12,8 @@ class BouncingBallManager : public egpSerializableData
 {
 	
 public:
+	BouncingBallManager() {};
+
 	std::vector<ballUnit*> ourBallUnits;
 	std::vector<ballUnit*> otherBallUnits;
 	void update(float dt);

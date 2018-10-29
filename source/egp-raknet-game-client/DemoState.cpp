@@ -1,5 +1,5 @@
 #include "Header.h"
-#include "egp-raknet-console/BouncingBallManager.h"
+#include "egp-net-framework/BouncingBallManager.h"
 
 DemoState* DemoState::getInstance()
 {

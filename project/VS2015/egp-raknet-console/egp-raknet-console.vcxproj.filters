@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\source\egp-raknet-console\BouncingBall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\egp-raknet-console\BouncingBallManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\source\egp-raknet-console\Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -36,9 +30,6 @@
     <ClInclude Include="..\..\..\source\egp-raknet-console\InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\egp-raknet-console\RaknetInitData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\source\egp-raknet-console\Unit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -50,12 +41,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\egp-raknet-console\BouncingBall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\egp-raknet-console\BouncingBallManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\egp-raknet-console\egp-raknet-console-main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,9 +57,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\egp-raknet-console\inputManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\egp-raknet-console\RaknetInitData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\egp-raknet-console\Unit.cpp">
