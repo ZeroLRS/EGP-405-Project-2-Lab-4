@@ -30,24 +30,7 @@ int main(int const argc, char const *const *const argv)
 
 	while (1)
 	{
-		switch (state->getCurrentModel())
-		{
-			case(PUSH):
-			{
-				state->updateDataPush();
-				break;
-			}
-			case(SHARE):
-			{
-				state->updateDataShared();
-				break;
-			}
-			case(COUPLED):
-			{
-				state->updateDataCoupled();
-				break;
-			}
-		}
+		server->update();
 	}
 
 	return 0;

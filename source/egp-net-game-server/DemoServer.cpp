@@ -9,8 +9,8 @@
 
 */
 
-#include "../DemoServer.h"
-#include "../ServerState.h"
+#include "DemoServer.h"
+#include "ServerState.h"
 
 int DemoServer::ProcessPacket(const RakNet::Packet *const packet, const unsigned int packetIndex) const
 {
@@ -23,11 +23,8 @@ int DemoServer::ProcessPacket(const RakNet::Packet *const packet, const unsigned
 			currentState->handleGameStatePacket(packet);
 			break;
 		}
-		case(e_id_networkedInput):
-		{
-			currentState->handleInputPacket(packet);
+		default:
 			break;
-		}
 	}
 
 	//if list of units is recieved send them to the unit manager in serverstate
@@ -56,6 +53,11 @@ bool DemoServer::hasClient(RakNet::RakNetGUID _clientID)
 	}
 
 	return false;
+}
+
+void DemoServer::update()
+{
+	currentState->updateState();
 }
 
 void DemoServer::addClient(RakNet::RakNetGUID _ID)

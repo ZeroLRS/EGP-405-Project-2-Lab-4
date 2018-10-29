@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include "DemoServer.h"
+#include "egp-raknet-console/BouncingBallManager.h"
+#include "egp-raknet-console/InputManager.h"
 
 ServerState::ServerState(DemoServer* _server)
 {
@@ -39,18 +41,61 @@ std::string getModelAsString(DataModel _model)
 	}
 }
 
+void ServerState::updateState()
+{
+
+	mpInputManager->updateKeyStates();
+
+	switch (getCurrentModel())
+	{
+		case(PUSH):
+		{
+			updateDataPush();
+			break;
+		}
+		case(SHARE):
+		{
+			updateDataShared();
+			break;
+		}
+		case(COUPLED):
+		{
+			updateDataCoupled();
+			break;
+		}
+		default:
+		{
+			return;
+		}
+	}
+
+	if (mpInputManager->getKeyDown(0x31))// 1
+	{
+		if (getCurrentModel() != PUSH)
+			switchDataModel(PUSH);
+	}
+	else if (mpInputManager->getKeyDown(0x32))// 2
+	{
+		if (getCurrentModel() != SHARE)
+			switchDataModel(SHARE);
+	}
+	else if (mpInputManager->getKeyDown(0x33))// 3
+	{
+		if (getCurrentModel() != COUPLED)
+			switchDataModel(COUPLED);
+	}
+}
+
 void ServerState::simulateDemo()
 {
 	//TODO: PASS IN DELTA TIME
-	//mpBouncingBallManager->update(1.0f);
+	mpBouncingBallManager->update(1.0f);
 }
 
 void ServerState::updateDataPush()
 {
 	//update regularly
-	//if input events are recieved from client recreate them locally
-	//localState->update();
-
+	simulateDemo();
 
 	if(shouldSendState())
 		server->broadcastDemoState();
@@ -79,14 +124,46 @@ void ServerState::updateDataCoupled()
 	}
 }
 
-void ServerState::handleInputPacket(const RakNet::Packet *const _packet)
+void ServerState::switchDataModel(DataModel _nextModel)
 {
+	switch (_nextModel)
+	{
+		//case(PUSH):
+		//{
+		//	updateDataPush();
+		//	break;
+		//}
+		//case(SHARE):
+		//{
+		//	updateDataShared();
+		//	break;
+		//}
+		case(COUPLED):
+		{
+			updatesRecieved = 0;
+			shouldSendState(false);
+			break;
+		}
+		default:
+		{
+			break;
+		}
+	}
 
+	currentDataModel = _nextModel;
 }
 
 void ServerState::handleGameStatePacket(const RakNet::Packet *const _packet)
 {
+	//if coupled combine
 	if (currentDataModel == COUPLED)
+	{
+		//mpBouncingBallManager->
+
+
+		++updatesRecieved;
+	}
+	else if(currentDataModel == SHARE)
 	{
 		
 	}
@@ -94,7 +171,10 @@ void ServerState::handleGameStatePacket(const RakNet::Packet *const _packet)
 
 void ServerState::render()
 {
-	std::cout << "Current data model: " << getModelAsString(getCurrentModel()) << '\n';
+	system("cls");
+
+	std::cout << "Current data model: " << getModelAsString(getCurrentModel()) << '\n'
+		<< "1 - PUSH || 2 - SHARED || 3 - COUPLED\n";
 }
 
 void ServerState::exitLoop()

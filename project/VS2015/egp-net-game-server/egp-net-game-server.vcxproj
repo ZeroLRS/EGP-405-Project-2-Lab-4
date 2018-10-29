@@ -96,7 +96,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);_DEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(EGP_NET_FW)include\;$(EGP_NET_FW)source\$(ProjectName)\;$(DEV_SDK_DIR)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EGP_NET_FW)include\;$(EGP_NET_FW)source\;$(DEV_SDK_DIR)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <SDLCheck>true</SDLCheck>
@@ -115,7 +115,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);_DEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(EGP_NET_FW)include\;$(EGP_NET_FW)source\$(ProjectName)\;$(DEV_SDK_DIR)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EGP_NET_FW)include\;$(EGP_NET_FW)source\;$(DEV_SDK_DIR)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>true</TreatWarningAsError>
       <SDLCheck>true</SDLCheck>
@@ -136,7 +136,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(EGP_NET_FW)include\;$(EGP_NET_FW)source\$(ProjectName)\;$(DEV_SDK_DIR)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EGP_NET_FW)include\;$(EGP_NET_FW)source\;$(DEV_SDK_DIR)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
@@ -158,7 +158,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN$(PlatformArchitecture);_WINDOWS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);NDEBUG</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(EGP_NET_FW)include\;$(EGP_NET_FW)source\$(ProjectName)\;$(DEV_SDK_DIR)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EGP_NET_FW)include\;$(EGP_NET_FW)source\;$(DEV_SDK_DIR)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
@@ -172,9 +172,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\egp-net-game-server\DemoServer.cpp" />
     <ClCompile Include="..\..\..\source\egp-net-game-server\egp-net-game-server-main.cpp" />
     <ClCompile Include="..\..\..\source\egp-net-game-server\fw\egpNetMasterServerPeerManager.cpp" />
-    <ClCompile Include="..\..\..\source\egp-net-game-server\fw\DemoServer.cpp" />
     <ClCompile Include="..\..\..\source\egp-net-game-server\ServerState.cpp" />
   </ItemGroup>
   <ItemGroup>

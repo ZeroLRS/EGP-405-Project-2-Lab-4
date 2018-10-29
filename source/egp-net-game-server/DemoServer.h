@@ -61,6 +61,7 @@ public:
 	// dtor
 	virtual ~DemoServer();
 
+	void update();
 	void addClient(RakNet::RakNetGUID _ID);
 	void removeClient(RakNet::RakNetGUID _ID);
 

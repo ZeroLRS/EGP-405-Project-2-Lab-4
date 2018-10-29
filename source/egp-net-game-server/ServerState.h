@@ -6,6 +6,7 @@
 class DemoServer;
 class BallUnit;
 class BouncingBallManager;
+class InputManager;
 
 namespace RakNet
 {
@@ -26,7 +27,7 @@ private:
 	//DemoState* localState;
 
 	BouncingBallManager* mpBouncingBallManager;
-
+	InputManager* mpInputManager;
 
 	DataModel currentDataModel;
 	const DemoServer* server;
@@ -34,16 +35,19 @@ private:
 	bool sendGameState;
 	int updatesRecieved;
 
-public:
-	ServerState(DemoServer* _server);
-	~ServerState();
-
 	void simulateDemo();
 	void updateDataPush();
 	void updateDataShared();
 	void updateDataCoupled();
+	void switchDataModel(DataModel _nextModel);
 
-	void handleInputPacket(const RakNet::Packet *const _packet);
+public:
+	ServerState(DemoServer* _server);
+	~ServerState();
+
+	void updateState();
+
+
 	void handleGameStatePacket(const RakNet::Packet *const _packet);
 
 	void render();

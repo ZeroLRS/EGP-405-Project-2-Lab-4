@@ -27,10 +27,10 @@
     <ClCompile Include="..\..\..\source\egp-net-game-server\fw\egpNetMasterServerPeerManager.cpp">
       <Filter>Source Files\fw</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\egp-net-game-server\fw\DemoServer.cpp">
+    <ClCompile Include="..\..\..\source\egp-net-game-server\ServerState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\egp-net-game-server\ServerState.cpp">
+    <ClCompile Include="..\..\..\source\egp-net-game-server\DemoServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
