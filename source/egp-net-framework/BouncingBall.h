@@ -10,19 +10,18 @@ class BouncingBall : public egpSerializableData
 public:
 	BouncingBall();
 
-	const int radius = 30;
+	const int radius = 50;
 
 	Vector2 position;
 	Vector2 velocity;
 
 	void update(BouncingBallManager* manager, float dt);
 
-	RakNet::NetworkIDObject netID;
-	RakNet::NetworkID netID_int;
+	uint64_t netID;
 
 private:
-	void unitCollision(BouncingBallManager* manager);
-	void unitCollide(BouncingBall* ball);
+	void unitCollision(BouncingBallManager* manager, float dt);
+	void unitCollide(BouncingBall* ball, float dt);
 	void boundaryCollide();
 	void move(float dt);
 	void addImpulse(Vector2 direction);

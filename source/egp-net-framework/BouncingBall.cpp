@@ -8,26 +8,26 @@ BouncingBall::BouncingBall()
 
 void BouncingBall::update(BouncingBallManager* manager, float dt)
 {
-	unitCollision(manager);
+	unitCollision(manager, dt);
 	boundaryCollide();
 	move(dt);
 }
 
-void BouncingBall::unitCollision(BouncingBallManager* manager)
+void BouncingBall::unitCollision(BouncingBallManager* manager, float dt)
 {
 	for each (BouncingBall* ball in manager->ourBallUnits)
 	{
 		// Make sure we don't count self-collision
 		if (!(ball->position == position))
-			unitCollide(ball);
+			unitCollide(ball, dt);
 	}
 	for each (BouncingBall* ball in manager->otherBallUnits)
 	{
-		unitCollide(ball);
+		unitCollide(ball, dt);
 	}
 }
 
-void BouncingBall::unitCollide(BouncingBall * ball)
+void BouncingBall::unitCollide(BouncingBall * ball, float dt)
 {
 	float distx, disty, totaldist;
 
@@ -40,11 +40,10 @@ void BouncingBall::unitCollide(BouncingBall * ball)
 
 	if (totaldist <= radius * radius)
 	{
+		float timeMod = dt;
 		// Add force equal to the inverse of the distance wrt radius
 		// ie. the closer they are at collision, the farther they bounce
-		addImpulse(Vector2(radius - distx, radius - disty));
-		//position.x += radius - distx;
-		//position.y += radius - disty;
+		addImpulse(Vector2((radius - distx) * timeMod, (radius - disty) * timeMod));
 	}
 }
 
@@ -105,8 +104,8 @@ int BouncingBall::Serialize(RakNet::BitStream * bs) const
 		totalSz += sizeof(velocity);
 		bs->Write(velocity);
 
-		totalSz += sizeof(RakNet::NetworkID);
-		bs->Write(netID_int);
+		totalSz += sizeof(netID);
+		bs->Write(netID);
 
 		return totalSz;
 	}
@@ -125,26 +124,16 @@ int BouncingBall::Deserialize(RakNet::BitStream * bs)
 		totalSz += sizeof(velocity);
 		bs->Read(velocity);
 
-		netID.SetNetworkIDManager(BouncingBallManager::getInstance()->netIDManager);
+		totalSz += sizeof(netID);
+		bs->Read(netID);
 
-		totalSz += sizeof(RakNet::NetworkID);
-		bs->Read(netID_int);
-
-		BouncingBall* existingBall = netID.GetNetworkIDManager()->GET_OBJECT_FROM_ID<BouncingBall*>(netID_int);
-		if (existingBall == nullptr)
+		for (BouncingBall* currentBall : BouncingBallManager::getInstance()->ourBallUnits)
 		{
-			netID.SetNetworkID(netID_int);
-		}
-		else
-		{
-			for (BouncingBall* currentBall : BouncingBallManager::getInstance()->ourBallUnits)
+			if (currentBall->netID == netID)
 			{
-				if (currentBall->netID_int == netID_int)
-				{
-					currentBall->position = position;
-					currentBall->velocity = velocity;
-					return totalSz;
-				}
+				currentBall->position = position;
+				currentBall->velocity = velocity;
+				return totalSz;
 			}
 		}
 

@@ -1,4 +1,5 @@
 #include "BouncingBallManager.h"
+#include "RakNet/RakPeerInterface.h"
 
 void BouncingBallManager::update(float dt)
 {
@@ -16,8 +17,7 @@ BouncingBall * BouncingBallManager::createBallUnit(Vector2 _position, Vector2 _v
 	newUnit = new BouncingBall();
 	newUnit->position = _position;
 	newUnit->velocity = _velocity;
-	newUnit->netID.SetNetworkIDManager(netIDManager);
-	newUnit->netID.GetNetworkID();
+	newUnit->netID = RakNet::RakPeerInterface::Get64BitUniqueRandomNumber();
 
 	ourBallUnits.push_back(newUnit);
 
@@ -68,7 +68,7 @@ int BouncingBallManager::Deserialize(RakNet::BitStream * bs)
 			bool found = false;
 			for (BouncingBall* currentBall : ourBallUnits)
 			{
-				if (currentBall->netID_int == newBall->netID_int)
+				if (currentBall->netID == newBall->netID)
 					found = true;
 			}
 

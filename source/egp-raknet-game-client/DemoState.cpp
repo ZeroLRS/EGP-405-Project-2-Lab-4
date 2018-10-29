@@ -18,13 +18,12 @@ bool DemoState::initPush()
 {
 	for (int i = 0; i < 3; i++)
 	{
-		int randomSeed = std::chrono::system_clock::to_time_t(lastTime);
+		int randomSeed = RakNet::RakPeerInterface::Get64BitUniqueRandomNumber();
 		BouncingBall newBall;
 		unsigned int packetSize = 0;
 		newBall.position = Vector2(randomSeed % 1280, randomSeed % 720);
 		newBall.velocity = Vector2(randomSeed % 200 + 200, randomSeed % 200 + 200);
-		newBall.netID.SetNetworkIDManager(mpBouncingBallManager->netIDManager);
-		newBall.netID_int = newBall.netID.GetNetworkID();
+		newBall.netID = RakNet::RakPeerInterface::Get64BitUniqueRandomNumber();
 
 		RakNet::BitStream* bs = new RakNet::BitStream();
 		packetSize += sizeof((char)DemoPeerManager::e_id_spawnNewBall);

@@ -9,9 +9,7 @@ class BouncingBallManager : public egpSerializableData
 	
 public:
 	BouncingBallManager()
-	{
-		netIDManager = new RakNet::NetworkIDManager();
-	}
+	{}
 
 	std::vector<BouncingBall*> ourBallUnits;
 	std::vector<BouncingBall*> otherBallUnits;
@@ -24,8 +22,6 @@ public:
 
 	// override deserialize from base class
 	virtual int Deserialize(RakNet::BitStream *bs);
-
-	RakNet::NetworkIDManager* netIDManager;
 
 	std::mutex ballLock;
 
