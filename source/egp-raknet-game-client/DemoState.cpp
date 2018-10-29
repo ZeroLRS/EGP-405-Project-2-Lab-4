@@ -15,6 +15,28 @@ bool DemoState::initSDL()
 
 bool DemoState::init()
 {
+	std::string modelSelect;
+	std::cout << "Select Model:\n\tData (P)ush\n\tData (S)hare\n\tData (C)oupled\n";
+	std::cin >> modelSelect;
+	if (modelSelect[0] == 'p' || modelSelect[0] == 'P')
+	{
+		mSelectedModel = DATA_PUSH;
+	}
+	else if (modelSelect[0] == 's' || modelSelect[0] == 'S')
+	{
+		mSelectedModel = DATA_SHARE;
+	}
+	else if (modelSelect[0] == 'c' || modelSelect[0] == 'C')
+	{
+		mSelectedModel = DATA_COUPLED;
+	}
+	else
+	{
+		std::cout << "\n\nERROR, invalid input.\nStarting in non-networked mode.\n";
+		system("pause");
+		mSelectedModel = NOT_NETWORKED;
+	}
+
 	if (!initSDL())
 	{
 		return false;

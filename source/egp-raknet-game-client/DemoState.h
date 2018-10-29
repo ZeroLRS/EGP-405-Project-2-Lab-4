@@ -23,6 +23,17 @@ private:
 	Sprite* ballSprite;
 	GraphicsBuffer* ballBuffer;
 
+	// Networking
+	// DemoNetPeerManager
+	enum NetworkModel
+	{
+		DATA_PUSH = 0,
+		DATA_SHARE,
+		DATA_COUPLED,
+		NOT_NETWORKED
+	};
+	NetworkModel mSelectedModel;
+
 	bool initSDL();
 	bool runLoop;
 	bool recieveInput;
