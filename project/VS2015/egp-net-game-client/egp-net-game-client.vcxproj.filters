@@ -27,6 +27,7 @@
     <ClInclude Include="..\..\..\source\egp-raknet-game-client\DemoState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DemoClient.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\egp-raknet-game-client\GraphicsBuffer.cpp">
@@ -47,5 +48,6 @@
     <ClCompile Include="..\..\..\source\egp-raknet-game-client\DemoState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DemoClient.cpp" />
   </ItemGroup>
 </Project>

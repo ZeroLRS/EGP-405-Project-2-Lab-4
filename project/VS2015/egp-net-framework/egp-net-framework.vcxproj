@@ -29,11 +29,13 @@
     <ClInclude Include="..\..\..\include\egp-net\fw\utils\egpTimer.h" />
     <ClInclude Include="..\..\..\source\egp-net-framework\BouncingBall.h" />
     <ClInclude Include="..\..\..\source\egp-net-framework\BouncingBallManager.h" />
+    <ClInclude Include="..\..\..\source\egp-net-framework\DemoPeerManager.h" />
     <ClInclude Include="..\..\..\source\egp-net-framework\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\egp-net-framework\BouncingBall.cpp" />
     <ClCompile Include="..\..\..\source\egp-net-framework\BouncingBallManager.cpp" />
+    <ClCompile Include="..\..\..\source\egp-net-framework\DemoPeerManager.cpp" />
     <ClCompile Include="..\..\..\source\egp-net-framework\egp-net\egp-net.cpp" />
     <ClCompile Include="..\..\..\source\egp-net-framework\egp-net\fw\egpDummyClass.cpp" />
     <ClCompile Include="..\..\..\source\egp-net-framework\egp-net\fw\egpNetPeerManager.cpp" />

@@ -1,13 +1,13 @@
 #include "ServerState.h"
 #include <iostream>
 #include <string>
-#include "DemoServer.h"
-#include "egp-raknet-console/BouncingBallManager.h"
+#include "egp-net-framework/BouncingBallManager.h"
 #include "egp-raknet-console/InputManager.h"
+#include "egp-net-framework/DemoPeerManager.h"
 
-ServerState::ServerState(DemoServer* _server)
+ServerState::ServerState()
 {
-	server = _server;
+	//server = _server;
 
 	//localState = new DemoState();
 	//localState->init();
@@ -97,8 +97,8 @@ void ServerState::updateDataPush()
 	//update regularly
 	simulateDemo();
 
-	if(shouldSendState())
-		server->broadcastDemoState();
+	if (shouldSendState())
+		return;//server->broadcastDemoState();
 }
 
 void ServerState::updateDataShared()
@@ -116,7 +116,7 @@ void ServerState::updateDataCoupled()
 	if (shouldSendState())
 	{
 		//send state to all clients
-		server->broadcastDemoState();
+		//server->broadcastDemoState();
 
 		//prevent state from being sent again until all packets are recieved
 		updatesRecieved = 0;
@@ -185,4 +185,20 @@ void ServerState::exitLoop()
 bool ServerState::shouldLoop()
 {
 	return runLoop;
+}
+
+void ServerState::broadcastDemoState()
+{
+	broadcastDemoState(-1);
+}
+
+void ServerState::broadcastDemoState(int _indexToOmit)
+{
+	RakNet::BitStream stream;
+
+	stream.Write(DemoPeerManager::e_id_gameStateUpdate);
+
+	//TO-DO: serialize all units
+
+	//DemoPeerManager::getInstance()->SendPacket(&stream, _indexToOmit, true, true);
 }
