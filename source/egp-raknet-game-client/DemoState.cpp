@@ -99,19 +99,22 @@ void DemoState::handleNetworking()
 
 void DemoState::update()
 {
-	mpInputManager->updateKeyStates();
+	if (mSelectedModel == NOT_NETWORKED)
+	{
+		mpInputManager->updateKeyStates();
 
-	std::chrono::time_point<std::chrono::system_clock> currentTime = std::chrono::system_clock::now();
-	std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> currentTimeMS 
-		= std::chrono::time_point_cast<std::chrono::milliseconds>(currentTime);
+		std::chrono::time_point<std::chrono::system_clock> currentTime = std::chrono::system_clock::now();
+		std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> currentTimeMS
+			= std::chrono::time_point_cast<std::chrono::milliseconds>(currentTime);
 
-	std::chrono::microseconds elapsedChronoTime = currentTimeMS - lastTimeMS;
+		std::chrono::microseconds elapsedChronoTime = currentTimeMS - lastTimeMS;
 
-	float elapsedTime = (float) elapsedChronoTime.count();
+		float elapsedTime = (float)elapsedChronoTime.count();
 
-	mpBouncingBallManager->update(elapsedTime / 1000);
+		mpBouncingBallManager->update(elapsedTime / 1000);
 
-	lastTimeMS = currentTimeMS;
+		lastTimeMS = currentTimeMS;
+	}
 }
 
 void DemoState::render()
