@@ -3,7 +3,6 @@
 #include <string>
 #include "DemoServer.h"
 #include "../project/VS2015/egp-net-game-client/DemoState.h"
-
 ServerState::ServerState(DemoServer* _server)
 {
 	server = _server;
@@ -42,6 +41,8 @@ std::string getModelAsString(DataModel _model)
 
 void ServerState::simulateDemo()
 {
+	//TODO: PASS IN DELTA TIME
+	mpBouncingBallManager->update(1.0f);
 }
 
 void ServerState::updateDataPush()
@@ -94,4 +95,14 @@ void ServerState::handleGameStatePacket(const RakNet::Packet *const _packet)
 void ServerState::render()
 {
 	std::cout << "Current data model: " << getModelAsString(getCurrentModel()) << '\n';
+}
+
+void ServerState::exitLoop()
+{
+	runLoop = false;
+}
+
+bool ServerState::shouldLoop()
+{
+	return runLoop;
 }
