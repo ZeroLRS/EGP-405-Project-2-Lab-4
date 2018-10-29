@@ -22,12 +22,24 @@ bool DemoState::initPush()
 	newBall.position = Vector2(randomSeed % 1280, randomSeed % 720);
 	newBall.velocity = Vector2(randomSeed % 200 + 200, randomSeed % 200 + 200);
 
+	BouncingBall newBallAgain;
+	unsigned int packetSizeAgain = 0;
+	newBallAgain.position = Vector2(randomSeed*2 % 1280, randomSeed*2 % 720);
+	newBallAgain.velocity = Vector2(randomSeed*2 % 200 + 200, randomSeed*2 % 200 + 200);
+
 	RakNet::BitStream* bs = new RakNet::BitStream();
 	packetSize += sizeof((char)DemoPeerManager::e_id_spawnNewBall);
 	bs->Write((char)DemoPeerManager::e_id_spawnNewBall);
 
+	RakNet::BitStream* bsAgain = new RakNet::BitStream();
+	packetSize += sizeof((char)DemoPeerManager::e_id_spawnNewBall);
+	bsAgain->Write((char)DemoPeerManager::e_id_spawnNewBall);
+
 	packetSize += newBall.Serialize(bs);
+	packetSizeAgain += newBall.Serialize(bsAgain);
+
 	mpPeerManager->spawnNewBall(bs, packetSize);
+	mpPeerManager->spawnNewBall(bsAgain, packetSizeAgain);
 	return true;
 }
 

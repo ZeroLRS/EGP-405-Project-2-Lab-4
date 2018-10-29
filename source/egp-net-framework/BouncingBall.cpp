@@ -49,21 +49,25 @@ void BouncingBall::unitCollide(BouncingBall * ball)
 
 void BouncingBall::boundaryCollide()
 {
-	if (position.x >= 1280)
+	if (position.x > 1280)
 	{
 		addImpulse(Vector2(-velocity.x * 2, 0));
+		position.x = 1280;
 	}
-	if (position.x <= 0)
+	if (position.x < 0)
 	{
 		addImpulse(Vector2(-velocity.x * 2, 0));
+		position.x = 0;
 	}
-	if (position.y >= 720)
+	if (position.y > 720)
 	{
 		addImpulse(Vector2(0, -velocity.y * 2));
+		position.y = 720;
 	}
-	if (position.y <= 0)
+	if (position.y < 0)
 	{
 		addImpulse(Vector2(0, -velocity.y * 2));
+		position.y = 0;
 	}
 }
 
