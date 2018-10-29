@@ -19,28 +19,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\source\egp-raknet-console\BouncingBall.h" />
-    <ClInclude Include="..\..\..\source\egp-raknet-console\BouncingBallManager.h" />
     <ClInclude Include="..\..\..\source\egp-raknet-console\Event.h" />
     <ClInclude Include="..\..\..\source\egp-raknet-console\EventListener.h" />
     <ClInclude Include="..\..\..\source\egp-raknet-console\EventQueue.h" />
     <ClInclude Include="..\..\..\source\egp-raknet-console\EventSystem.h" />
     <ClInclude Include="..\..\..\source\egp-raknet-console\InputManager.h" />
-    <ClInclude Include="..\..\..\source\egp-raknet-console\RaknetInitData.h" />
     <ClInclude Include="..\..\..\source\egp-raknet-console\Unit.h" />
     <ClInclude Include="..\..\..\source\egp-raknet-console\UnitManager.h" />
     <ClInclude Include="..\..\..\source\egp-raknet-console\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\egp-raknet-console\BouncingBall.cpp" />
-    <ClCompile Include="..\..\..\source\egp-raknet-console\BouncingBallManager.cpp" />
     <ClCompile Include="..\..\..\source\egp-raknet-console\egp-raknet-console-main.cpp" />
     <ClCompile Include="..\..\..\source\egp-raknet-console\Event.cpp" />
     <ClCompile Include="..\..\..\source\egp-raknet-console\EventListener.cpp" />
     <ClCompile Include="..\..\..\source\egp-raknet-console\EventQueue.cpp" />
     <ClCompile Include="..\..\..\source\egp-raknet-console\EventSystem.cpp" />
     <ClCompile Include="..\..\..\source\egp-raknet-console\inputManager.cpp" />
-    <ClCompile Include="..\..\..\source\egp-raknet-console\RaknetInitData.cpp" />
     <ClCompile Include="..\..\..\source\egp-raknet-console\Unit.cpp" />
     <ClCompile Include="..\..\..\source\egp-raknet-console\UnitManager.cpp" />
     <ClCompile Include="..\..\..\source\egp-raknet-console\Vector2.cpp" />
