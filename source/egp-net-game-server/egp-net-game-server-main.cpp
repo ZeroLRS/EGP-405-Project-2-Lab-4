@@ -5,12 +5,15 @@
 bool initServer(DemoPeerManager* _server)
 {
 	int numClients;
-
+	int port;
 	std::cout << "Enter maximum number of clients: \n";
 
 	std::cin >> numClients;
 
-	if (!_server->StartupNetworking(false, numClients, 0, true))
+	std::cout << "Enter server port: \n";
+	std::cin >> port;
+
+	if (!_server->StartupNetworking(false, numClients, port, true))
 	{
 		return false;
 	}
