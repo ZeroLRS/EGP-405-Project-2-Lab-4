@@ -2,11 +2,11 @@
 #undef main
 #include <stdlib.h>
 #include <iostream>
-#include "UnitManager.h"
-#include "Unit.h"
+#include "egp-raknet-console/UnitManager.h"
+#include "egp-raknet-console/Unit.h"
+#include "egp-raknet-console/EventSystem.h"
 #include "GraphicsSystem.h"
 #include "DemoState.h"
-#include "EventSystem.h"
 
 int main()
 {	

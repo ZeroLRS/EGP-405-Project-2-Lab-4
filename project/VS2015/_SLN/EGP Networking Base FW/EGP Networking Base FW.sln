@@ -10,9 +10,13 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "egp-net-game-server", "..\..\egp-net-game-server\egp-net-game-server.vcxproj", "{69C53C5A-923F-4101-8135-D3874275698B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94} = {4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94}
+		{5EC9C5FE-41CA-468B-9831-2B1E6BA2A614} = {5EC9C5FE-41CA-468B-9831-2B1E6BA2A614}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "egp-net-game-client", "..\..\egp-net-game-client\egp-net-game-client.vcxproj", "{36C625F4-E2B5-4D83-8711-B68FE5EFB4BC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94} = {4C7EB86C-6A0B-4C25-A7A9-E83033DC6A94}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

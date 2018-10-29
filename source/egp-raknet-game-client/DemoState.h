@@ -9,6 +9,8 @@ class BouncingBallManager;
 class Sprite;
 class GraphicsBuffer;
 
+#include <chrono>
+
 class DemoState
 {
 private:
@@ -24,6 +26,10 @@ private:
 	bool initSDL();
 	bool runLoop;
 	bool recieveInput;
+
+	//Timing
+	std::chrono::time_point<std::chrono::system_clock> lastTime;
+	std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> lastTimeMS;
 
 public:
 	DemoState() = default;

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include "DemoServer.h"
-#include "../project/VS2015/egp-net-game-client/DemoState.h"
+
 ServerState::ServerState(DemoServer* _server)
 {
 	server = _server;
@@ -42,7 +42,7 @@ std::string getModelAsString(DataModel _model)
 void ServerState::simulateDemo()
 {
 	//TODO: PASS IN DELTA TIME
-	mpBouncingBallManager->update(1.0f);
+	//mpBouncingBallManager->update(1.0f);
 }
 
 void ServerState::updateDataPush()
