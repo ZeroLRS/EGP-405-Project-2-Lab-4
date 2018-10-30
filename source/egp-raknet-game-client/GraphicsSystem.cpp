@@ -17,7 +17,7 @@ bool GraphicsSystem::init()
 
 	mpWindow = SDL_CreateWindow("Project2",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, mWidth, mHeight,
-		SDL_WINDOW_SHOWN);//SDL_WINDOW_FULLSCREEN_DESKTOP);
+		SDL_WINDOW_RESIZABLE);//SDL_WINDOW_FULLSCREEN_DESKTOP);
 
 	mpRenderer = SDL_CreateRenderer(mpWindow, -1, 0);
 

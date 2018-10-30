@@ -50,6 +50,23 @@ bool DemoState::initShare()
 	return false;
 }
 
+bool DemoState::initCoupled()
+{
+	mpBouncingBallManager->updateCoupledBalls = true;
+
+	for (int i = 0; i < 3; i++)
+	{
+		int randomSeed = RakNet::RakPeerInterface::Get64BitUniqueRandomNumber();
+		BouncingBall* newBall = new BouncingBall();
+		newBall->position = Vector2(randomSeed % 1280, randomSeed % 720);
+		newBall->velocity = Vector2(randomSeed % 200 + 200, randomSeed % 200 + 200);
+		newBall->netID = RakNet::RakPeerInterface::Get64BitUniqueRandomNumber();
+		mpBouncingBallManager->getInstance()->ourBallUnits.push_back(newBall);
+	}
+
+	return true;
+}
+
 bool DemoState::init()
 {
 	std::string modelSelect;
@@ -142,6 +159,9 @@ bool DemoState::init()
 	case DATA_SHARE:
 		initShare();
 		break;
+	case DATA_COUPLED:
+		initCoupled();
+		break;
 	default:
 		break;
 	}
@@ -149,13 +169,15 @@ bool DemoState::init()
 	return true;
 }
 
-void DemoState::handleNetworking()
-{
-}
-
 void DemoState::update()
 {
-	if (mSelectedModel == NOT_NETWORKED || mSelectedModel == DATA_SHARE)
+	SDL_Event Event;
+	while (SDL_PollEvent(&Event))
+	{
+		// If this isn't here, we can't drag the window
+	}
+
+	if (mSelectedModel == NOT_NETWORKED || mSelectedModel == DATA_SHARE || (mSelectedModel == DATA_COUPLED && mpBouncingBallManager->updateCoupledBalls) )
 	{
 		mpInputManager->updateKeyStates();
 
@@ -183,6 +205,20 @@ void DemoState::update()
 		packetSize += mpBouncingBallManager->Serialize(bs);
 
 		mpPeerManager->updateBouncingBalls(bs, packetSize);
+	}
+	else if (mSelectedModel == DATA_COUPLED && mpBouncingBallManager->updateCoupledBalls)
+	{
+		unsigned int packetSize = 0;
+		RakNet::BitStream* bs = new RakNet::BitStream();
+
+		packetSize += sizeof((char)DemoPeerManager::e_id_sendStateCoupled);
+		bs->Write((char)DemoPeerManager::e_id_sendStateCoupled);
+
+		packetSize += mpBouncingBallManager->Serialize(bs);
+
+		mpPeerManager->updateBouncingBalls(bs, packetSize);
+
+		mpBouncingBallManager->updateCoupledBalls = false;
 	}
 }
 

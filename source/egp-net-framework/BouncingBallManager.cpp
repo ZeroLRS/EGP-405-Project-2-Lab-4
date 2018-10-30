@@ -1,6 +1,6 @@
 #include "BouncingBallManager.h"
-#include "RakNet/RakPeerInterface.h"
-
+#include <map>
+#include "DemoPeerManager.h"
 void BouncingBallManager::update(float dt)
 {
 	std::lock_guard<std::mutex> lock(ballLock);
@@ -118,6 +118,88 @@ int BouncingBallManager::DeserializeOtherUnits(RakNet::BitStream * bs)
 		return totalSz;
 	}
 	return 0;
+}
+
+void BouncingBallManager::addCoupledBalls(RakNet::BitStream* _ballStream)
+{
+	std::vector<BouncingBall*>* toAdd = new std::vector<BouncingBall*>();
+
+	size_t ballCount = 0;
+	_ballStream->Read(ballCount);
+
+	for (int i = 0; i < ballCount; i++)
+	{
+		BouncingBall* newBall = new BouncingBall();
+		newBall = new BouncingBall();
+
+		newBall->Deserialize(_ballStream);
+		
+		toAdd->push_back(newBall);
+	}
+
+	coupledBallUnits->push_back(toAdd);
+
+	(DemoPeerManager::getInstance()->coupledPacketsRecieved)++;
+
+	if (DemoPeerManager::getInstance()->coupledPacketsRecieved >= DemoPeerManager::getInstance()->getConnectedClients())
+	{
+		combineGameStates();
+	}
+}
+
+bool containsBall(std::map<int64_t, BouncingBall*>* _map, uint64_t _id)
+{
+	auto iter = _map->find(_id);
+
+	return iter != _map->end();
+}
+
+std::vector<BouncingBall*>* BouncingBallManager::combineGameStates()
+{
+	typedef std::pair<int64_t, BouncingBall*> coupledUnitData;
+
+	std::map<int64_t, BouncingBall*> combined;
+
+	int numClients = DemoPeerManager::getInstance()->getConnectedClients();
+
+	for (auto iter = coupledBallUnits->begin(); iter != coupledBallUnits->end(); ++iter)
+	{
+		for (auto subIter = (*iter)->begin(); subIter != (*iter)->end(); ++subIter)
+		{
+			if (containsBall(&combined, (*subIter)->netID))
+			{
+				combined.at((*subIter)->netID)->position += (*subIter)->position;
+			}
+			else
+			{
+				combined.insert(coupledUnitData((*subIter)->netID, (*subIter)));
+			}
+		}
+	}
+
+	std::vector<BouncingBall*>* combinedBalls = new std::vector<BouncingBall*>();
+
+	for (auto iter = combined.begin(); iter != combined.end(); ++iter)
+	{
+		float x = iter->second->position.x;
+		float y = iter->second->position.y;
+
+		x /= numClients;
+		y /= numClients;
+
+		iter->second->position.x = x;
+		iter->second->position.y = y;
+
+		combinedBalls->push_back((iter->second));
+	}
+
+	DemoPeerManager::getInstance()->sendCoupledBouncingBalls(combinedBalls);
+
+	DemoPeerManager::getInstance()->coupledPacketsRecieved = 0;
+	coupledBallUnits->clear();
+	ourBallUnits.clear();
+
+	return combinedBalls;
 }
 
 BouncingBallManager* BouncingBallManager::getInstance()

@@ -14,6 +14,7 @@
 
 #include "egp-net/fw/egpNetPeerManager.h"
 #include <vector>
+class BouncingBall;
 
 // server manager
 class DemoPeerManager : public egpNetPeerManager
@@ -34,6 +35,8 @@ public:
 		e_id_requestUpdateBouncingBallsToServer,
 		e_id_coupledGameStateUpdate,
 		e_id_spawnNewBall,
+		e_id_sendStateCoupled,
+		e_id_recieveCoupledState,
 		// ****TO-DO: implement general identifiers
 		// these should be peer-type-agnostic, i.e. either server or client
 		// some suggestions: 
@@ -55,8 +58,11 @@ public:
 	void sendGameStatePacket(RakNet::BitStream* _gsStream, unsigned int _gsSize);
 	void spawnNewBall(RakNet::BitStream* _bStream, unsigned int _bSize);
 	void updateBouncingBalls(RakNet::BitStream* _ubStream, unsigned int _ubSize);
-
+	void sendCoupledBouncingBalls(std::vector<BouncingBall*>* _balls);
 	std::string serverAddress;
+	inline int getConnectedClients() { return mp_peer->NumberOfConnections(); };
+
+	int coupledPacketsRecieved;
 };
 
 

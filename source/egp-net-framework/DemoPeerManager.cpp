@@ -27,6 +27,9 @@ int DemoPeerManager::ProcessPacket(const RakNet::Packet *const packet, const uns
 			stream.IgnoreBytes(sizeof((char)e_id_gameStateUpdate));
 
 			BouncingBallManager::getInstance()->Deserialize(&stream);
+			BouncingBallManager::getInstance()->updateCoupledBalls = true;
+
+			std::cout << "gameStateUpdate" << std::endl;
 			break;
 		}
 		case(e_id_spawnNewBall):
@@ -53,6 +56,8 @@ int DemoPeerManager::ProcessPacket(const RakNet::Packet *const packet, const uns
 
 			BouncingBallManager::getInstance()->DeserializeOtherUnits(&stream);
 			std::cout << "UpdateBouncingBalls" << std::endl;
+
+			
 			break;
 		}
 		case(e_id_requestUpdateBouncingBallsToServer):
@@ -62,6 +67,16 @@ int DemoPeerManager::ProcessPacket(const RakNet::Packet *const packet, const uns
 
 			SendPacket(&stream, mp_peer->GetIndexFromSystemAddress(packet->systemAddress), true, true);
 			std::cout << "requestUpdateBouncingBalls" << std::endl;
+			break;
+		}
+		case(e_id_sendStateCoupled): //on server
+		{
+
+			RakNet::BitStream stream(packet->data, packet->length, false);
+			stream.IgnoreBytes(sizeof((char)e_id_sendStateCoupled));
+
+			BouncingBallManager::getInstance()->addCoupledBalls(&stream);
+			std::cout << "sendStateCoupled" << std::endl;
 			break;
 		}
 		default:
@@ -78,6 +93,7 @@ int DemoPeerManager::ProcessPacket(const RakNet::Packet *const packet, const uns
 
 DemoPeerManager::DemoPeerManager()
 {
+	coupledPacketsRecieved = 0;
 }
 
 DemoPeerManager::~DemoPeerManager()
@@ -105,6 +121,23 @@ void DemoPeerManager::spawnNewBall(RakNet::BitStream * _bStream, unsigned int _b
 void DemoPeerManager::updateBouncingBalls(RakNet::BitStream * _ubStream, unsigned int _ubSize)
 {
 	SendPacket(_ubStream, 0, false, true);
+}
+
+void DemoPeerManager::sendCoupledBouncingBalls(std::vector<BouncingBall*>* _balls)
+{
+	RakNet::BitStream* bs = new RakNet::BitStream();
+
+	sizeof((char)DemoPeerManager::e_id_gameStateUpdate);
+	bs->Write((char)DemoPeerManager::e_id_gameStateUpdate);
+
+	bs->Write(_balls->size());
+
+	for (BouncingBall* b : *_balls)
+	{
+		b->Serialize(bs);
+	}
+
+	SendPacket(bs, -1, true, true);
 }
 
 //void DemoPeerManager::sendAllPackets()

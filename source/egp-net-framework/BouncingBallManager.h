@@ -9,10 +9,15 @@ class BouncingBallManager : public egpSerializableData
 	
 public:
 	BouncingBallManager()
-	{}
+	{
+		updateCoupledBalls = false;
+		coupledBallUnits = new std::vector<std::vector<BouncingBall*>*>;
+	}
 
 	std::vector<BouncingBall*> ourBallUnits;
 	std::vector<BouncingBall*> otherBallUnits;
+
+	std::vector<std::vector<BouncingBall*>*>* coupledBallUnits; //i'm so sorry
 	void update(float dt);
 
 	BouncingBall* createBallUnit(Vector2 _position, Vector2 _velocity);
@@ -23,6 +28,9 @@ public:
 	// override deserialize from base class
 	virtual int Deserialize(RakNet::BitStream *bs);
 	int DeserializeOtherUnits(RakNet::BitStream *bs);
+	void addCoupledBalls(RakNet::BitStream* _ballStream);
+	std::vector<BouncingBall*>* combineGameStates();
+	bool updateCoupledBalls;
 
 	std::mutex ballLock;
 

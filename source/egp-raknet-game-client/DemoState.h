@@ -21,7 +21,6 @@ class DemoState
 private:
 	GraphicsSystem * mpGraphicsSystem;
 	GraphicsBufferManager* mpGraphicsBufferManager;
-	//UnitManager* mpUnitManager;
 	BouncingBallManager* mpBouncingBallManager;
 	InputManager* mpInputManager;
 
@@ -29,7 +28,6 @@ private:
 	GraphicsBuffer* ballBuffer;
 
 	// Networking
-	// DemoNetPeerManager
 	enum NetworkModel
 	{
 		DATA_PUSH = 0,
@@ -46,7 +44,7 @@ private:
 
 	bool initPush();
 	bool initShare();
-	//bool initCoupled();
+	bool initCoupled();
 
 	//Timing
 	std::chrono::time_point<std::chrono::system_clock> lastTime;
@@ -60,7 +58,6 @@ public:
 
 	bool init();
 
-	virtual void handleNetworking();
 	virtual void update();
 	virtual void render();
 
@@ -69,7 +66,6 @@ public:
 
 	inline GraphicsSystem* getGraphicsSystem() { return mpGraphicsSystem; };
 	inline GraphicsBufferManager* getGraphicsBufferManager() { return mpGraphicsBufferManager; };
-	//inline UnitManager* getUnitManager() { return mpUnitManager; };
 	inline BouncingBallManager* getUnitManager() { return mpBouncingBallManager; };
 	inline InputManager* getInputManager() { return mpInputManager; };
 	inline bool canRecieveInput() { return recieveInput; };
