@@ -138,28 +138,3 @@ void DemoPeerManager::sendCoupledBouncingBalls(std::vector<BouncingBall*>* _ball
 
 	SendPacket(bs, -1, true, true);
 }
-
-//void DemoPeerManager::sendAllPackets()
-//{
-//	for (auto packet : packetsThisFrame)
-//	{
-//		SendPacket()
-//	}
-//}
-
-
-//void DemoServer::broadcastDemoState() const
-//{
-//	broadcastDemoState(-1);
-//}
-//
-//void DemoServer::broadcastDemoState(int _indexToOmit) const
-//{
-//	RakNet::BitStream stream;
-//
-//	stream.Write(e_id_gameStateUpdate);
-//
-//	//TO-DO: serialize all units
-//
-//	SendPacket(&stream, _indexToOmit, true, true);
-//}

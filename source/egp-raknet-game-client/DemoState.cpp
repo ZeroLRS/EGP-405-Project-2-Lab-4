@@ -229,8 +229,6 @@ void DemoState::render()
 
 	std::lock_guard<std::mutex> lock(mpBouncingBallManager->ballLock);
 
-	std::cout << mpBouncingBallManager->ourBallUnits.size() << std::endl;
-
 	for (BouncingBall* ball : mpBouncingBallManager->ourBallUnits)
 	{
 		getGraphicsSystem()->draw(ballSprite, ball->position.x, ball->position.y);
