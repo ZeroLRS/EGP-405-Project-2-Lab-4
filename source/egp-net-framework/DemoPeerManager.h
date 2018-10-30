@@ -55,6 +55,8 @@ public:
 	void sendGameStatePacket(RakNet::BitStream* _gsStream, unsigned int _gsSize);
 	void spawnNewBall(RakNet::BitStream* _bStream, unsigned int _bSize);
 	void updateBouncingBalls(RakNet::BitStream* _ubStream, unsigned int _ubSize);
+
+	std::string serverAddress;
 };
 
 

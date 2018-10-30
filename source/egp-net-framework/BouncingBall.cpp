@@ -137,6 +137,16 @@ int BouncingBall::Deserialize(RakNet::BitStream * bs)
 			}
 		}
 
+		for (BouncingBall* currentBall : BouncingBallManager::getInstance()->otherBallUnits)
+		{
+			if (currentBall->netID == netID)
+			{
+				currentBall->position = position;
+				currentBall->velocity = velocity;
+				return totalSz;
+			}
+		}
+
 		return totalSz;
 	}
 	return 0;

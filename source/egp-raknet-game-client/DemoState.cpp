@@ -98,6 +98,7 @@ bool DemoState::init()
 		std::cin >> port;
 
 		std::cout << "Connecting to server...\n";
+		mpPeerManager->serverAddress = ip;
 		if (mpPeerManager->Connect(ip.c_str(), port) <= 0)
 		{
 			std::cout << "Could not connect.\n";

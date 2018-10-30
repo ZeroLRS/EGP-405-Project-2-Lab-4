@@ -57,7 +57,7 @@ int DemoPeerManager::ProcessPacket(const RakNet::Packet *const packet, const uns
 		}
 		case(e_id_requestUpdateBouncingBallsToServer):
 		{
-			packet->data[0] = (char) e_id_requestUpdateBouncingBallsToServer;
+			packet->data[0] = (char)e_id_updateBouncingBalls;
 			RakNet::BitStream stream(packet->data, packet->length, false);
 
 			SendPacket(&stream, mp_peer->GetIndexFromSystemAddress(packet->systemAddress), true, true);
@@ -104,7 +104,7 @@ void DemoPeerManager::spawnNewBall(RakNet::BitStream * _bStream, unsigned int _b
 
 void DemoPeerManager::updateBouncingBalls(RakNet::BitStream * _ubStream, unsigned int _ubSize)
 {
-	SendPacket(_ubStream, -1, true, true);
+	SendPacket(_ubStream, 0, false, true);
 }
 
 //void DemoPeerManager::sendAllPackets()
