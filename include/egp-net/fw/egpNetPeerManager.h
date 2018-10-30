@@ -40,18 +40,6 @@ class egpNetPeerManager abstract
 	int ProcessAllPackets() const;
 	void ResetValues();
 
-
-	// peer management
-	// the Raknet peer interface has a LOT of features, including tracking 
-	//	connection indices... we need this higher-level interface to know 
-	//	how to use these features!
-	// e.g.
-	//	-get index of IP address and vice versa (maps connection ID to IP)
-	//	-get your index on someone else's system
-	//	-send single message
-	//	-send multiple messages
-	RakNet::RakPeerInterface *mp_peer;
-
 	// connection counts for easy access: inbound only and total
 	unsigned short m_maxInbound, m_maxConnect;
 
@@ -83,6 +71,16 @@ protected:
 		e_id_packetEnd
 	};
 
+	// peer management
+	// the Raknet peer interface has a LOT of features, including tracking 
+	//	connection indices... we need this higher-level interface to know 
+	//	how to use these features!
+	// e.g.
+	//	-get index of IP address and vice versa (maps connection ID to IP)
+	//	-get your index on someone else's system
+	//	-send single message
+	//	-send multiple messages
+	RakNet::RakPeerInterface *mp_peer;
 
 	// ctor
 	egpNetPeerManager();

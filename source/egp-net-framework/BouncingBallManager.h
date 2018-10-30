@@ -22,6 +22,7 @@ public:
 
 	// override deserialize from base class
 	virtual int Deserialize(RakNet::BitStream *bs);
+	int DeserializeOtherUnits(RakNet::BitStream *bs);
 
 	std::mutex ballLock;
 

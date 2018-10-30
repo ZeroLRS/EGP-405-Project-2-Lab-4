@@ -115,59 +115,6 @@ void ServerState::updateDataCoupled()
 	}
 }
 
-void ServerState::switchDataModel(DataModel _nextModel)
-{
-	switch (_nextModel)
-	{
-		//case(PUSH):
-		//{
-		//	updateDataPush();
-		//	break;
-		//}
-		//case(SHARE):
-		//{
-		//	updateDataShared();
-		//	break;
-		//}
-		case(COUPLED):
-		{
-			updatesRecieved = 0;
-			shouldSendState(false);
-			break;
-		}
-		default:
-		{
-			break;
-		}
-	}
-
-	currentDataModel = _nextModel;
-}
-
-void ServerState::handleGameStatePacket(const RakNet::Packet *const _packet)
-{
-	//if coupled combine
-	if (currentDataModel == COUPLED)
-	{
-		//mpBouncingBallManager->
-
-
-		++updatesRecieved;
-	}
-	else if(currentDataModel == SHARE)
-	{
-		
-	}
-}
-
-void ServerState::render()
-{
-	system("cls");
-
-	std::cout << "Current data model: " << getModelAsString(getCurrentModel()) << '\n'
-		<< "1 - PUSH || 2 - SHARED || 3 - COUPLED\n";
-}
-
 void ServerState::exitLoop()
 {
 	runLoop = false;
@@ -178,27 +125,14 @@ bool ServerState::shouldLoop()
 	return runLoop;
 }
 
-void ServerState::broadcastDemoState()
-{
-	broadcastDemoState(-1);
-}
-
-void ServerState::broadcastDemoState(int _indexToOmit)
-{
-	RakNet::BitStream stream;
-
-	stream.Write(DemoPeerManager::e_id_gameStateUpdate);
-
-	//TO-DO: serialize all units
-
-	//DemoPeerManager::getInstance()->SendPacket(&stream, _indexToOmit, true, true);
-}
-
 bool ServerState::initPush()
 {
-	//mpBouncingBallManager->createBallUnit(Vector2(300, 300), Vector2(-300, -300), 1);
-	//mpBouncingBallManager->createBallUnit(Vector2(400, 600), Vector2(300, 500), 2);
 
+	return true;
+}
+
+bool ServerState::initShare()
+{
 	return true;
 }
 
@@ -217,6 +151,7 @@ bool ServerState::init()
 	else if (modelSelect[0] == 's' || modelSelect[0] == 'S')
 	{
 		currentDataModel = SHARE;
+		initShare();
 	}
 	else if (modelSelect[0] == 'c' || modelSelect[0] == 'C')
 	{

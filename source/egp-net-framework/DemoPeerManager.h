@@ -31,6 +31,7 @@ public:
 		e_id_packetBegin = ID_USER_PACKET_ENUM,
 		e_id_gameStateUpdate,
 		e_id_updateBouncingBalls,
+		e_id_requestUpdateBouncingBallsToServer,
 		e_id_coupledGameStateUpdate,
 		e_id_spawnNewBall,
 		// ****TO-DO: implement general identifiers
@@ -53,6 +54,7 @@ public:
 	static DemoPeerManager* getInstance();
 	void sendGameStatePacket(RakNet::BitStream* _gsStream, unsigned int _gsSize);
 	void spawnNewBall(RakNet::BitStream* _bStream, unsigned int _bSize);
+	void updateBouncingBalls(RakNet::BitStream* _ubStream, unsigned int _ubSize);
 };
 
 

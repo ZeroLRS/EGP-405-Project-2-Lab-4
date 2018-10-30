@@ -38,6 +38,15 @@ bool DemoState::initPush()
 
 bool DemoState::initShare()
 {
+	for (int i = 0; i < 3; i++)
+	{
+		int randomSeed = RakNet::RakPeerInterface::Get64BitUniqueRandomNumber();
+		BouncingBall* newBall = new BouncingBall();
+		newBall->position = Vector2(randomSeed % 1280, randomSeed % 720);
+		newBall->velocity = Vector2(randomSeed % 200 + 200, randomSeed % 200 + 200);
+		newBall->netID = RakNet::RakPeerInterface::Get64BitUniqueRandomNumber();
+		mpBouncingBallManager->getInstance()->ourBallUnits.push_back(newBall);
+	}
 	return false;
 }
 
@@ -129,6 +138,9 @@ bool DemoState::init()
 	case DATA_PUSH:
 		initPush();
 		break;
+	case DATA_SHARE:
+		initShare();
+		break;
 	default:
 		break;
 	}
@@ -142,7 +154,7 @@ void DemoState::handleNetworking()
 
 void DemoState::update()
 {
-	if (mSelectedModel == NOT_NETWORKED)
+	if (mSelectedModel == NOT_NETWORKED || mSelectedModel == DATA_SHARE)
 	{
 		mpInputManager->updateKeyStates();
 
@@ -158,6 +170,19 @@ void DemoState::update()
 
 		lastTimeMS = currentTimeMS;
 	}
+
+	if (mSelectedModel == DATA_SHARE)
+	{
+		unsigned int packetSize = 0;
+		RakNet::BitStream* bs = new RakNet::BitStream();
+
+		packetSize += sizeof((char)DemoPeerManager::e_id_requestUpdateBouncingBallsToServer);
+		bs->Write((char)DemoPeerManager::e_id_requestUpdateBouncingBallsToServer);
+
+		packetSize += mpBouncingBallManager->Serialize(bs);
+
+		mpPeerManager->updateBouncingBalls(bs, packetSize);
+	}
 }
 
 void DemoState::render()
@@ -170,7 +195,10 @@ void DemoState::render()
 	for (BouncingBall* ball : mpBouncingBallManager->ourBallUnits)
 	{
 		getGraphicsSystem()->draw(ballSprite, ball->position.x, ball->position.y);
-		printf("pos x, y: %f, %f\n", ball->position.x, ball->position.y);
+	}
+	for (BouncingBall* ball : mpBouncingBallManager->otherBallUnits)
+	{
+		getGraphicsSystem()->draw(ballSprite, ball->position.x, ball->position.y);
 	}
 
 	getGraphicsSystem()->flip();

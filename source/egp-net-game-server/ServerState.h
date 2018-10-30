@@ -39,12 +39,9 @@ private:
 	void updateDataPush();
 	void updateDataShared();
 	void updateDataCoupled();
-	void switchDataModel(DataModel _nextModel);
-	void broadcastDemoState();
-	void broadcastDemoState(int _indexToOmit);
 
 	bool initPush();
-	//bool initShare();
+	bool initShare();
 	//bool initCoupled();
 
 	//Timing
@@ -58,10 +55,6 @@ public:
 	bool init();
 
 	void updateState();
-
-	void handleGameStatePacket(const RakNet::Packet *const _packet);
-
-	void render();
 
 	inline DataModel getCurrentModel() { return currentDataModel; };
 	inline DataModel setCurrentModel(DataModel _nextModel) { return currentDataModel = _nextModel; };

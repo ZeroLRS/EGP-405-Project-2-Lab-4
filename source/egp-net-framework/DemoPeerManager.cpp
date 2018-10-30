@@ -17,7 +17,7 @@
 int DemoPeerManager::ProcessPacket(const RakNet::Packet *const packet, const unsigned int packetIndex) const
 {
 	// ****TO-DO: implement server-specific packet processor
-	
+
 	switch (packet->data[0])
 	{
 		case(e_id_gameStateUpdate):
@@ -43,6 +43,25 @@ int DemoPeerManager::ProcessPacket(const RakNet::Packet *const packet, const uns
 				newBall.velocity.x, newBall.velocity.y);
 
 			BouncingBallManager::getInstance()->createBallUnit(newBall.position, newBall.velocity);
+			break;
+		}
+		case(e_id_updateBouncingBalls):
+		{
+			RakNet::BitStream stream(packet->data, packet->length, false);
+
+			stream.IgnoreBytes(sizeof((char)e_id_updateBouncingBalls));
+
+			BouncingBallManager::getInstance()->DeserializeOtherUnits(&stream);
+			std::cout << "UpdateBouncingBalls" << std::endl;
+			break;
+		}
+		case(e_id_requestUpdateBouncingBallsToServer):
+		{
+			packet->data[0] = (char) e_id_requestUpdateBouncingBallsToServer;
+			RakNet::BitStream stream(packet->data, packet->length, false);
+
+			SendPacket(&stream, mp_peer->GetIndexFromSystemAddress(packet->systemAddress), true, true);
+			std::cout << "requestUpdateBouncingBalls" << std::endl;
 			break;
 		}
 		default:
@@ -81,6 +100,11 @@ void DemoPeerManager::sendGameStatePacket(RakNet::BitStream* _gsStream, unsigned
 void DemoPeerManager::spawnNewBall(RakNet::BitStream * _bStream, unsigned int _bSize)
 {
 	SendPacket(_bStream, -1, true, true);
+}
+
+void DemoPeerManager::updateBouncingBalls(RakNet::BitStream * _ubStream, unsigned int _ubSize)
+{
+	SendPacket(_ubStream, -1, true, true);
 }
 
 //void DemoPeerManager::sendAllPackets()

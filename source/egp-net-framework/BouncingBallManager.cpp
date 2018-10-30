@@ -83,6 +83,43 @@ int BouncingBallManager::Deserialize(RakNet::BitStream * bs)
 	return 0;
 }
 
+int BouncingBallManager::DeserializeOtherUnits(RakNet::BitStream * bs)
+{
+	std::lock_guard<std::mutex> lock(ballLock);
+	if (bs)
+	{
+
+		unsigned int totalSz = 0;
+		size_t ballCount = 0;
+
+		totalSz += sizeof(ballCount);
+		bs->Read(ballCount);
+
+		for (int i = 0; i < ballCount; i++)
+		{
+			BouncingBall* newBall = new BouncingBall();
+			newBall = new BouncingBall();
+
+			totalSz += newBall->Deserialize(bs);
+
+			bool found = false;
+			for (BouncingBall* currentBall : otherBallUnits)
+			{
+				if (currentBall->netID == newBall->netID)
+					found = true;
+			}
+
+			if (!found)
+			{
+				otherBallUnits.push_back(newBall);
+			}
+		}
+
+		return totalSz;
+	}
+	return 0;
+}
+
 BouncingBallManager* BouncingBallManager::getInstance()
 {
 	static BouncingBallManager instance;
