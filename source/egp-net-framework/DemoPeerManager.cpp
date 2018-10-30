@@ -71,7 +71,6 @@ int DemoPeerManager::ProcessPacket(const RakNet::Packet *const packet, const uns
 		}
 		case(e_id_sendStateCoupled): //on server
 		{
-
 			RakNet::BitStream stream(packet->data, packet->length, false);
 			stream.IgnoreBytes(sizeof((char)e_id_sendStateCoupled));
 

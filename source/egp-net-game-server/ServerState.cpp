@@ -73,6 +73,7 @@ void ServerState::simulateDemo()
 	mpBouncingBallManager->update(elapsedTime / 1000);
 
 	lastTimeMS = currentTimeMS;
+	std::cout << mpBouncingBallManager->ourBallUnits.size() << std::endl;
 }
 
 void ServerState::updateDataPush()
@@ -89,6 +90,7 @@ void ServerState::updateDataPush()
 	bs->Write((char)DemoPeerManager::e_id_gameStateUpdate);
 	packetSize += mpBouncingBallManager->Serialize(bs);
 	DemoPeerManager::getInstance()->sendGameStatePacket(bs, packetSize);
+
 	
 }
 
